@@ -1,0 +1,21 @@
+﻿<Window x:Class="WinScreenRec.ControlWindow.Controlwindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
+        xmlns:local="clr-namespace:WinScreenRec.ControlWindow"
+        mc:Ignorable="d"
+        Title="Mainwindow" Height="118.872" Width="330.231"
+        Topmost="True">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ClickCloseWindow}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Button Content="Select Recode Area" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" Width="296" Command="{Binding SelectPreviewArea}"/>
+        <Button Content="Record" HorizontalAlignment="Left" Margin="12,53,0,0" VerticalAlignment="Top" Width="296" Command="{Binding RecordCapture}"/>
+
+    </Grid>
+</Window>
