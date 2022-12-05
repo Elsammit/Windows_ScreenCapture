@@ -150,10 +150,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomMsgBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="DisplayWindow\CaptureAreaWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -163,12 +159,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BindingBase.cs" />
+    <Compile Include="ControlWindow\ControlModel.cs" />
     <Compile Include="ControlWindow\ControlViewModel.cs" />
     <Compile Include="ControlWindow\ControlWindow.xaml.cs">
       <DependentUpon>ControlWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CustomMsgBox.xaml.cs">
-      <DependentUpon>CustomMsgBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="ImgProcess.cs" />

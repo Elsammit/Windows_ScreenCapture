@@ -178,5 +178,11 @@ namespace WinScreenRec
             }
             return ret;
         }
+
+
+        public void CommunicationConfirm()
+        {
+            Console.WriteLine("communication confirmation is ok!! ");
+        }
     }
 }

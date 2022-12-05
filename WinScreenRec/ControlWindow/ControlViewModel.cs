@@ -10,6 +10,7 @@ namespace WinScreenRec.ControlWindow
     {
 
         CaptureAreaWindow m_CaptureAreaWindow = new CaptureAreaWindow();
+        ControlModel m_ControlModel = new ControlModel();
         bool IsCaputureAreaView = false;
         bool IsRecoding = false;
 
@@ -71,6 +72,7 @@ namespace WinScreenRec.ControlWindow
             IsRecoding = !IsRecoding;
             if (IsRecoding)
             {
+                m_ControlModel.StartRecord();
                 Console.WriteLine("Recoding start");
             }
             else

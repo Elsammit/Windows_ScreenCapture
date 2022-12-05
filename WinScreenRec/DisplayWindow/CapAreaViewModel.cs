@@ -13,7 +13,7 @@ namespace WinScreenRec
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr hObject);
 
-        CapAreaModel m_CapAreaModel;
+        public static CapAreaModel m_CapAreaModel;
 
         public CapAreaViewModel()
         {
