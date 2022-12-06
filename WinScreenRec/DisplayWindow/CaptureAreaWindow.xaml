@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
         xmlns:local="clr-namespace:WinScreenRec"
-        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
+        d:DataContext="{d:DesignInstance Type=local:CapAreaViewModel}"
         mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
         Title="ScreenCaptureツール" Height="792.901" Width="1485.972"
-        Background="#FF050505"
+        Background="#00FFFFFF" WindowState="Maximized"
         >
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
@@ -21,8 +23,9 @@
         </Grid.ColumnDefinitions>
         <Canvas 
             x:Name="RectArea" 
-            Margin="0,0,188,0" 
-            Panel.ZIndex="1" Background="#0FFFFFFF" OpacityMask="Gray" RenderTransformOrigin="0.602,0.503"
+            Margin="0,0,0,0" 
+            Panel.ZIndex="1" 
+            OpacityMask="Gray" Background="#1FEEE4E4"
         >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -37,60 +40,5 @@
             </i:Interaction.Triggers>
             <Border BorderBrush="Red" BorderThickness="2" Width="{Binding RectWidth}" Height="{Binding RectHeight}" Margin="{Binding RectangleMargin}" Panel.ZIndex="-6" />
         </Canvas>
-        <Border BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
-            <Image 
-                x:Name="ImgCap" 
-                Source="{Binding ImageArea}" 
-                Margin="0,0,186,30"
-            />
-        </Border>
-        <Button 
-            x:Name="StartButton" 
-            Content="{Binding StartBtnContent}" 
-            Margin="1317,659,0,0" 
-            Command="{Binding StartBtnOnClick}" 
-            RenderTransformOrigin="1.155,1.833" 
-            Panel.ZIndex="2" FontSize="24" HorizontalAlignment="Left" Width="136" Height="74" VerticalAlignment="Top"
-        >
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="-2.969"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="-4.567"/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <Border 
-            x:Name="RecBlock" 
-            BorderBrush="Black" 
-            BorderThickness="1" 
-            Margin="1332,32,24,674" 
-            CornerRadius="30" 
-            Background="#FFFB4646"
-            Opacity="{Binding RecBorderOpacity}"
-            RenderTransformOrigin="-6.375,10.312"
-        >
-            <TextBlock 
-                TextWrapping="Wrap" 
-                Text="REC" 
-                Margin="19,11,19,0" 
-                TextAlignment="Center" 
-                Foreground="White" 
-                FontSize="24" Height="32" VerticalAlignment="Top"
-            />
-        </Border>
-        <Label 
-            x:Name="RecTimer" 
-            Content="{Binding RecTimerContent}"
-            Opacity="{Binding RecTimerOpacity}"
-            HorizontalAlignment="Left" 
-            Margin="1358,109,0,0" 
-            VerticalAlignment="Top" 
-            Height="40" 
-            Width="76" 
-            FontSize="24" 
-            Foreground="White"
-        />
     </Grid>
 </Window>

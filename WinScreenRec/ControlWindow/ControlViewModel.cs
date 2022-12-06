@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,8 @@ namespace WinScreenRec.ControlWindow
     {
 
         CaptureAreaWindow m_CaptureAreaWindow = new CaptureAreaWindow();
+        ControlModel m_ControlModel = new ControlModel();
         bool IsCaputureAreaView = false;
-        bool IsRecoding = false;
 
         private DelegateCommand _SelectPreviewArea = null;
         public DelegateCommand SelectPreviewArea 
@@ -68,13 +69,21 @@ namespace WinScreenRec.ControlWindow
 
         private void RecordCaptureFunc()
         {
-            IsRecoding = !IsRecoding;
-            if (IsRecoding)
+            if (!m_ControlModel.CheckIsRecord())
             {
-                Console.WriteLine("Recoding start");
+                var dialog = new SaveFileDialog();
+                dialog.Title = "ファイルを保存";
+                dialog.Filter = "動画ファイル|*.wmv";
+                if (dialog.ShowDialog() == true)
+                {
+                    m_ControlModel.SetFilePath(dialog.FileName);
+                    m_ControlModel.StartRecord();
+                    Console.WriteLine("Recoding start");
+                }
             }
             else
             {
+                m_ControlModel.StopRecord();
                 Console.WriteLine("Recording stop");
             }
         }
