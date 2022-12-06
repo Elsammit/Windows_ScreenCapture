@@ -33,22 +33,8 @@ namespace WinScreenRec
         public bool isStartPrev { set; get; } = true;   // Start preview flag(start:true, not start:false).
         public bool IsMouseDown { set; get; } = false;  // Is mouse down ? (Yes:true, No:false).
         public delegate void SetRectInformation(double rectHeight, double rectWidth, string rectMargin);
-        public delegate void DispCapture(ref System.Drawing.Bitmap bitmap, int minute, int sec);
-        public CapAreaModel(DispCapture dispCapture)
+        public CapAreaModel()
         {
-            Thread thread;
-            thread = new Thread(new ThreadStart(() =>
-            {
-                CaptureMovieAsync(dispCapture);
-            }));
-            thread.Start();
-        }
-
-        // Timer count for screen display.
-        int timerCnt = 0;
-        public int GetTimerCnt()
-        {
-            return timerCnt;
         }
 
         // Position get function..
@@ -115,11 +101,11 @@ namespace WinScreenRec
             }
         }
 
+
         /// <summary>
-        /// Capture movie
+        /// 
         /// </summary>
-        /// <param name="dispCapture">callback function for displaying capture to wpf</param>
-        public void CaptureMovieAsync(DispCapture dispCapture)
+        public void CaptureMovieAsync()
         {
             var bitmap = new System.Drawing.Bitmap(
                 (int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight,
@@ -127,10 +113,6 @@ namespace WinScreenRec
             while (isStartPrev)
             {
                 isStartPrev = CaputureScreen(ref bitmap);
-
-                int sec = (GetTimerCnt() / 30) % 60;
-                int minute = (GetTimerCnt() / 30) / 60;
-                dispCapture(ref bitmap, minute, sec);
             }
             bitmap.Dispose();
         }
@@ -162,20 +144,6 @@ namespace WinScreenRec
 
             m_ImgProcess.GetCaptureImage(isStartRec, m_RECT, ref bitmap);
 
-            if (isStartRec)
-            {
-                timerCnt++;
-            }
-            else
-            {
-                timerCnt = 0;
-            }
-            if (timerCnt >= 18000)
-            {
-                ret = false;
-                timerCnt = 0;
-
-            }
             return ret;
         }
 
