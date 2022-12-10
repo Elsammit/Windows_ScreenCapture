@@ -107,12 +107,14 @@ namespace WinScreenRec
         /// </summary>
         public void CaptureMovieAsync()
         {
+            bool ret = true;
             var bitmap = new System.Drawing.Bitmap(
                 (int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight,
                 System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             while (isStartPrev)
             {
-                isStartPrev = CaputureScreen(ref bitmap);
+                ret = CaputureScreen(ref bitmap);
+                if (!ret) { isStartPrev = ret; }
             }
             bitmap.Dispose();
         }
@@ -127,6 +129,7 @@ namespace WinScreenRec
             bool ret = true;
 
             Position position = Getposition();
+            //Console.WriteLine("X:{0}, Y:{1}", position.left, position.height);
             if (position.width <= 0 || position.height <= 0)
             {
                 m_RECT.right = (int)SystemParameters.PrimaryScreenWidth;

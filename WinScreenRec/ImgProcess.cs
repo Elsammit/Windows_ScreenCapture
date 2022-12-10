@@ -27,7 +27,7 @@ namespace WinScreenRec
         VideoWriter writer = null;  // Video writer for recording
         string RecordFilePath = ""; // Record file path.
         RECT m_recordData = new RECT(); // Record area.
-        Mat mat = new Mat();            
+        //Mat mat = new Mat();            
         Bitmap bmp = null;
 
         /// <summary>
@@ -88,6 +88,7 @@ namespace WinScreenRec
         private bool WriteVideo(bool isStartRec, ref Bitmap screenBmp, RECT rect)
         {
             m_recordData = rect;
+            //Mat mat = new Mat();
 
             int capWidth = m_recordData.right - m_recordData.left;
             int capHeight = m_recordData.bottom - m_recordData.top;
@@ -101,21 +102,42 @@ namespace WinScreenRec
             Rectangle rectBuf = new System.Drawing.Rectangle(rect.left, rect.top,
                         capWidth, capHeight);
             bmp = screenBmp.Clone(rectBuf, screenBmp.PixelFormat);
-            mat = BitmapConverter.ToMat(bmp).CvtColor(ColorConversionCodes.RGB2BGR);
-            if (isStartRec)
+            using (Mat mat2 = BitmapConverter.ToMat(bmp))
             {
-                Cv2.CvtColor(mat, mat, ColorConversionCodes.BGR2RGB);
-                Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
-                writer.Write(mat);
-            }
-            else
-            {
-                if (writer != null && writer.IsOpened())
+                using (Mat mat = mat2.CvtColor(ColorConversionCodes.RGB2BGR))
                 {
-                    writer.Release();
+                    if (isStartRec)
+                    {
+                        Console.WriteLine("Recording!!..");
+                        Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
+                        writer.Write(mat);
+                    }
+                    else
+                    {
+                        if (writer != null && writer.IsOpened())
+                        {
+                            writer.Release();
+                        }
+                    }
+                    Cv2.ImShow("test", mat);
+                    Cv2.WaitKey(1);
                 }
+                //if (isStartRec)
+                //{
+                //    Cv2.CvtColor(mat, mat, ColorConversionCodes.BGR2RGB);
+                //    Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
+                //    writer.Write(mat);
+                //}
+                //else
+                //{
+                //    if (writer != null && writer.IsOpened())
+                //    {
+                //        writer.Release();
+                //    }
+                //}
             }
             bmp.Dispose();
+            //mat.Dispose();
 
             return true;
         }

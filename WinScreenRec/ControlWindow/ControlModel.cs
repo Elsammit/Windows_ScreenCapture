@@ -38,5 +38,11 @@ namespace WinScreenRec.ControlWindow
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = false;
         }
+
+        public void CloseControlWindow()
+        {
+            CapAreaViewModel.m_CapAreaModel.isStartRec = false;
+            CapAreaViewModel.m_CapAreaModel.isStartPrev = false;
+        }
     }
 }
