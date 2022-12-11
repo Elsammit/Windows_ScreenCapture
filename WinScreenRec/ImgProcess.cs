@@ -105,44 +105,27 @@ namespace WinScreenRec
             Rectangle rectBuf = new System.Drawing.Rectangle(rect.left, rect.top,
                         capWidth, capHeight);
             bmp = screenBmp.Clone(rectBuf, screenBmp.PixelFormat);
-            using (Mat mat2 = BitmapConverter.ToMat(bmp))
+            using (Mat mat = BitmapConverter.ToMat(bmp))
             {
-                using (Mat mat = mat2.CvtColor(ColorConversionCodes.RGB2BGR))
+                Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
+                if (isStartRec)
                 {
-                    Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
-                    if (isStartRec)
-                    {
-                        Console.WriteLine("Recording!!..");
-                        Console.WriteLine("RecordFilePath:{0}", RecordFilePath);
-                        //Console.WriteLine("Height:{0}, Width:{1}", capHeight, capWidth);
-                        writer.Write(mat);
-                    }
-                    else
-                    {
-                        if (writer != null && writer.IsOpened())
-                        {
-                            writer.Release();
-                        }
-                    }
-                    Cv2.ImShow("test", mat);
-                    Cv2.WaitKey(60);
+                    Console.WriteLine("Recording!!..");
+                    Console.WriteLine("RecordFilePath:{0}", RecordFilePath);
+                    //Console.WriteLine("Height:{0}, Width:{1}", capHeight, capWidth);
+                    writer.Write(mat);
                 }
-                //if (isStartRec)
-                //{
-                //    Cv2.CvtColor(mat, mat, ColorConversionCodes.BGR2RGB);
-                //    Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
-                //    writer.Write(mat);
-                //}
-                //else
-                //{
-                //    if (writer != null && writer.IsOpened())
-                //    {
-                //        writer.Release();
-                //    }
-                //}
+                else
+                {
+                    if (writer != null && writer.IsOpened())
+                    {
+                        writer.Release();
+                    }
+                }
+                Cv2.ImShow("test", mat);
+                Cv2.WaitKey(60);
             }
             bmp.Dispose();
-            //mat.Dispose();
 
             return true;
         }
