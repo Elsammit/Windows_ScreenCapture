@@ -38,7 +38,9 @@ namespace WinScreenRec
         {
             int width = m_recordData.right - m_recordData.left;
             int height = m_recordData.bottom - m_recordData.top;
-            writer = new VideoWriter(RecordFilePath, FourCC.WMV1, 30,
+            Console.WriteLine("Initialize width:{0}, height:{1}", width, height);
+            Console.WriteLine("Initialize rec path:{0}", RecordFilePath);
+            writer = new VideoWriter(RecordFilePath, FourCC.WMV1, 10,
                     new OpenCvSharp.Size(width, height));
         }
 
@@ -92,6 +94,7 @@ namespace WinScreenRec
 
             int capWidth = m_recordData.right - m_recordData.left;
             int capHeight = m_recordData.bottom - m_recordData.top;
+            //Console.WriteLine("Height:{0}, Width:{1}", capHeight, capWidth);
          
             if (capHeight <= 0 || capWidth <= 0)
             {
@@ -106,10 +109,12 @@ namespace WinScreenRec
             {
                 using (Mat mat = mat2.CvtColor(ColorConversionCodes.RGB2BGR))
                 {
+                    Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
                     if (isStartRec)
                     {
                         Console.WriteLine("Recording!!..");
-                        Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
+                        Console.WriteLine("RecordFilePath:{0}", RecordFilePath);
+                        //Console.WriteLine("Height:{0}, Width:{1}", capHeight, capWidth);
                         writer.Write(mat);
                     }
                     else
@@ -120,7 +125,7 @@ namespace WinScreenRec
                         }
                     }
                     Cv2.ImShow("test", mat);
-                    Cv2.WaitKey(1);
+                    Cv2.WaitKey(60);
                 }
                 //if (isStartRec)
                 //{
