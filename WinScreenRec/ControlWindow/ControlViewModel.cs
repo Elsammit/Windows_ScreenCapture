@@ -90,6 +90,7 @@ namespace WinScreenRec.ControlWindow
 
         private void CloseWindowFunc()
         {
+            m_ControlModel.CloseControlWindow();
             m_CaptureAreaWindow.Close();
         }
 
