@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reactive.Disposables;
 
 namespace WinScreenRec.ControlWindow
 {
@@ -76,6 +77,7 @@ namespace WinScreenRec.ControlWindow
                 dialog.Filter = "動画ファイル|*.wmv";
                 if (dialog.ShowDialog() == true)
                 {
+                    m_CaptureAreaWindow.Hide();
                     m_ControlModel.SetFilePath(dialog.FileName);
                     m_ControlModel.StartRecord();
                     Console.WriteLine("Recoding start");

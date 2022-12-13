@@ -129,7 +129,6 @@ namespace WinScreenRec
             bool ret = true;
 
             Position position = Getposition();
-            //Console.WriteLine("X:{0}, Y:{1}", position.left, position.height);
             if (position.width <= 0 || position.height <= 0)
             {
                 m_RECT.right = (int)SystemParameters.PrimaryScreenWidth;
