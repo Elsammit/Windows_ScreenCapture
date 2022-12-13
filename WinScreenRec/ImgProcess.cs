@@ -94,7 +94,6 @@ namespace WinScreenRec
 
             int capWidth = m_recordData.right - m_recordData.left;
             int capHeight = m_recordData.bottom - m_recordData.top;
-            //Console.WriteLine("Height:{0}, Width:{1}", capHeight, capWidth);
          
             if (capHeight <= 0 || capWidth <= 0)
             {
@@ -110,9 +109,6 @@ namespace WinScreenRec
                 Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
                 if (isStartRec)
                 {
-                    Console.WriteLine("Recording!!..");
-                    Console.WriteLine("RecordFilePath:{0}", RecordFilePath);
-                    //Console.WriteLine("Height:{0}, Width:{1}", capHeight, capWidth);
                     writer.Write(mat);
                 }
                 else
