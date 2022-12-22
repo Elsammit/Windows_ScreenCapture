@@ -6,7 +6,7 @@
         xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
         xmlns:local="clr-namespace:WinScreenRec.ControlWindow"
         mc:Ignorable="d"
-        Title="Mainwindow" Height="118.872" Width="330.231"
+        Title="Mainwindow" Height="188.872" Width="330.231"
         Topmost="True">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
@@ -14,8 +14,13 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Button Content="Select Recode Area" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" Width="296" Command="{Binding SelectPreviewArea}" IsEnabled="{Binding PrevieAreaEnable}"/>
-        <Button Content="Record" HorizontalAlignment="Left" Margin="12,53,0,0" VerticalAlignment="Top" Width="296" Command="{Binding RecordCapture}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Select Recode Area" HorizontalAlignment="Left" Margin="16,56,0,0" VerticalAlignment="Top" Width="118" Command="{Binding SelectPreviewArea}" IsEnabled="{Binding PrevieAreaEnable}" Height="89"/>
+        <Button Content="Record" HorizontalAlignment="Left" Margin="192,56,0,0" VerticalAlignment="Top" Width="120" Command="{Binding RecordCapture}" Height="89"/>
+        <Ellipse Fill="#FF0000" HorizontalAlignment="Left" Height="26" Margin="15,12,0,0" Stroke="#F00000" VerticalAlignment="Top" Width="26"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="55,13,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
