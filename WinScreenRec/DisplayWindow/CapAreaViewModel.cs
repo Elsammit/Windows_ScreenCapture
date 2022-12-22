@@ -56,7 +56,7 @@ namespace WinScreenRec
                 if (_MouseLeftBtnDwn == null)
                 {
                     _MouseLeftBtnDwn = new ReactiveCommand<Object>().WithSubscribe(obj => {
-                        if (!m_CapAreaModel.isStartRec)
+                        if (m_CapAreaModel.isStartRec != 1)
                         {
                             var ele = (IInputElement)obj;
                             var pos = Mouse.GetPosition(ele);

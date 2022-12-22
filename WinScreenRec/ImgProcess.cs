@@ -26,8 +26,7 @@ namespace WinScreenRec
 
         VideoWriter writer = null;  // Video writer for recording
         string RecordFilePath = ""; // Record file path.
-        RECT m_recordData = new RECT(); // Record area.
-        //Mat mat = new Mat();            
+        RECT m_recordData = new RECT(); // Record area.          
         Bitmap bmp = null;
 
         /// <summary>
@@ -38,8 +37,6 @@ namespace WinScreenRec
         {
             int width = m_recordData.right - m_recordData.left;
             int height = m_recordData.bottom - m_recordData.top;
-            Console.WriteLine("Initialize width:{0}, height:{1}", width, height);
-            Console.WriteLine("Initialize rec path:{0}", RecordFilePath);
             writer = new VideoWriter(RecordFilePath, FourCC.WMV1, 10,
                     new OpenCvSharp.Size(width, height));
         }
@@ -62,7 +59,7 @@ namespace WinScreenRec
         /// <param name="rect">cutting area</param>
         /// <param name="screenBmp">capture image</param>
         /// <returns></returns>
-        public bool GetCaptureImage(bool isStartRec, RECT rect, ref System.Drawing.Bitmap screenBmp)
+        public bool GetCaptureImage(int isStartRec, RECT rect, ref System.Drawing.Bitmap screenBmp)
         {
             bool ret = true;
 
@@ -87,7 +84,7 @@ namespace WinScreenRec
         /// <param name="rect">cutting area</param>
         /// <param name="screenBmp">capture image</param>
         /// <returns></returns>
-        private bool WriteVideo(bool isStartRec, ref Bitmap screenBmp, RECT rect)
+        private bool WriteVideo(int isStartRec, ref Bitmap screenBmp, RECT rect)
         {
             m_recordData = rect;
             //Mat mat = new Mat();
@@ -107,18 +104,23 @@ namespace WinScreenRec
             using (Mat mat = BitmapConverter.ToMat(bmp))
             {
                 Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
-                if (isStartRec)
+
+                if (isStartRec == 1 && writer.IsOpened())
                 {
+                    // You can't record images without it !!
+                    Cv2.CvtColor(mat, mat, ColorConversionCodes.BGR2RGB);
+                    Cv2.CvtColor(mat, mat, ColorConversionCodes.RGB2BGR);
                     writer.Write(mat);
                 }
-                else
+                else if(isStartRec == 2)
                 {
                     if (writer != null && writer.IsOpened())
                     {
+                        isStartRec = 0;
                         writer.Release();
                     }
                 }
-                Cv2.ImShow("test", mat);
+                //Cv2.ImShow("test", mat);
                 Cv2.WaitKey(60);
             }
             bmp.Dispose();

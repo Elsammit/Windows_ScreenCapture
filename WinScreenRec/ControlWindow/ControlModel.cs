@@ -23,25 +23,24 @@ namespace WinScreenRec.ControlWindow
             CapAreaViewModel.m_CapAreaModel.SetFilePath(filePath);
         }
 
-        public bool CheckIsRecord()
+        public int CheckIsRecord()
         {
             return CapAreaViewModel.m_CapAreaModel.isStartRec;
         }
 
         public void StartRecord()
         {
-            CapAreaViewModel.m_CapAreaModel.CommunicationConfirm();
-            CapAreaViewModel.m_CapAreaModel.isStartRec = true;
+            CapAreaViewModel.m_CapAreaModel.isStartRec = 1;
         }
 
         public void StopRecord()
         {
-            CapAreaViewModel.m_CapAreaModel.isStartRec = false;
+            CapAreaViewModel.m_CapAreaModel.isStartRec = 2;
         }
 
         public void CloseControlWindow()
         {
-            CapAreaViewModel.m_CapAreaModel.isStartRec = false;
+            CapAreaViewModel.m_CapAreaModel.isStartRec = 2;
             CapAreaViewModel.m_CapAreaModel.isStartPrev = false;
         }
     }

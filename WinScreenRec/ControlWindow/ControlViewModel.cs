@@ -70,7 +70,7 @@ namespace WinScreenRec.ControlWindow
 
         private void RecordCaptureFunc()
         {
-            if (!m_ControlModel.CheckIsRecord())
+            if (m_ControlModel.CheckIsRecord() != 1)
             {
                 var dialog = new SaveFileDialog();
                 dialog.Title = "ファイルを保存";
@@ -78,8 +78,8 @@ namespace WinScreenRec.ControlWindow
                 if (dialog.ShowDialog() == true)
                 {
                     m_CaptureAreaWindow.Hide();
-                    m_ControlModel.SetFilePath(dialog.FileName);
                     m_ControlModel.StartRecord();
+                    m_ControlModel.SetFilePath(dialog.FileName);
                     Console.WriteLine("Recoding start");
                 }
             }
