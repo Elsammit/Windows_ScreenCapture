@@ -74,7 +74,7 @@ namespace WinScreenRec.ControlWindow
             {
                 var dialog = new SaveFileDialog();
                 dialog.Title = "ファイルを保存";
-                dialog.Filter = "動画ファイル|*.wmv";
+                dialog.Filter = "動画ファイル|*.mp4";
                 if (dialog.ShowDialog() == true)
                 {
                     m_CaptureAreaWindow.Hide();

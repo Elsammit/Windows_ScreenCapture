@@ -37,7 +37,7 @@ namespace WinScreenRec
         {
             int width = m_recordData.right - m_recordData.left;
             int height = m_recordData.bottom - m_recordData.top;
-            writer = new VideoWriter(RecordFilePath, FourCC.WMV1, 10,
+            writer = new VideoWriter(RecordFilePath, FourCC.MP4V, 10,
                     new OpenCvSharp.Size(width, height));
         }
 
