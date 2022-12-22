@@ -29,7 +29,7 @@ namespace WinScreenRec
         public double RectWidth { set; get; }       // Recording area width.
         public string RectangleMargin { set; get; } // Display Rectangle area position.
 
-        public bool isStartRec { set; get; } = false;   // Start record flag(start:true, not start:false).
+        public int isStartRec { set; get; } = 0;   // Start record flag(start:true, not start:false).
         public bool isStartPrev { set; get; } = true;   // Start preview flag(start:true, not start:false).
         public bool IsMouseDown { set; get; } = false;  // Is mouse down ? (Yes:true, No:false).
         public delegate void SetRectInformation(double rectHeight, double rectWidth, string rectMargin);
@@ -147,12 +147,6 @@ namespace WinScreenRec
             m_ImgProcess.GetCaptureImage(isStartRec, m_RECT, ref bitmap);
 
             return ret;
-        }
-
-
-        public void CommunicationConfirm()
-        {
-            Console.WriteLine("communication confirmation is ok!! ");
         }
     }
 }
