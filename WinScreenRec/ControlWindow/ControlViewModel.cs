@@ -55,15 +55,54 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
+        private string _EnableRecordMark = "Hidden";
+        public string EnableRecordMark {
+            get
+            {
+                return _EnableRecordMark;
+            }
+            set
+            {
+                _EnableRecordMark = value;
+                OnPropertyChanged(nameof(EnableRecordMark));
+            }
+        }
+
+        private string _EnableRecordTime = "Hidden";
+        public string EnableRecordTime {
+            get
+            {
+                return _EnableRecordTime;
+            }
+            set
+            {
+                EnableRecordTime = value;
+            }
+        }
+
+        private string _TimerValue = "00:00";
+        public string TimerValue {
+            get
+            {
+                return _TimerValue;
+            }
+            set
+            {
+                TimerValue = value;
+            }
+        }
+
         private void ViewPreviewAreaFunc()
         {
             IsCaputureAreaView = !IsCaputureAreaView;
             if (IsCaputureAreaView)
             {
+
                 m_CaptureAreaWindow.Show();
             }
             else
             {
+
                 m_CaptureAreaWindow.Hide();
             }
         }
@@ -74,9 +113,11 @@ namespace WinScreenRec.ControlWindow
             {
                 var dialog = new SaveFileDialog();
                 dialog.Title = "ファイルを保存";
-                dialog.Filter = "動画ファイル|*.wmv";
+                dialog.Filter = "動画ファイル|*.mp4";
                 if (dialog.ShowDialog() == true)
                 {
+                    EnableRecordTime = "Visible";
+                    EnableRecordMark = "Visible";
                     m_CaptureAreaWindow.Hide();
                     m_ControlModel.StartRecord();
                     m_ControlModel.SetFilePath(dialog.FileName);
@@ -85,6 +126,8 @@ namespace WinScreenRec.ControlWindow
             }
             else
             {
+                EnableRecordTime = "Hidden";
+                EnableRecordMark = "Hidden";
                 m_ControlModel.StopRecord();
                 Console.WriteLine("Recording stop");
             }
