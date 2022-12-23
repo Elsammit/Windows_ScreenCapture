@@ -32,6 +32,10 @@ namespace WinScreenRec
         public int isStartRec { set; get; } = 0;   // Start record flag(start:true, not start:false).
         public bool isStartPrev { set; get; } = true;   // Start preview flag(start:true, not start:false).
         public bool IsMouseDown { set; get; } = false;  // Is mouse down ? (Yes:true, No:false).
+
+        public string 
+
+
         public delegate void SetRectInformation(double rectHeight, double rectWidth, string rectMargin);
         public CapAreaModel()
         {
