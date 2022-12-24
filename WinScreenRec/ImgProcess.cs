@@ -29,6 +29,8 @@ namespace WinScreenRec
         RECT m_recordData = new RECT(); // Record area.          
         Bitmap bmp = null;
 
+        int RecordCnt = 0;
+
         /// <summary>
         /// Initialize video writer.
         /// </summary>
@@ -50,6 +52,11 @@ namespace WinScreenRec
         {
             RecordFilePath = filePath;
             InitVideoWriter(rect);
+        }
+
+        public int GetRecordCount()
+        {
+            return RecordCnt;
         }
 
         /// <summary>
@@ -111,6 +118,7 @@ namespace WinScreenRec
                     Cv2.CvtColor(mat, mat, ColorConversionCodes.BGR2RGB);
                     Cv2.CvtColor(mat, mat, ColorConversionCodes.RGB2BGR);
                     writer.Write(mat);
+                    RecordCnt++;
                 }
                 else if(isStartRec == 2)
                 {

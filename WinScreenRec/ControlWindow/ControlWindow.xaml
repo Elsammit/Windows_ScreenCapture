@@ -20,7 +20,7 @@
         <Button Content="Select Recode Area" HorizontalAlignment="Left" Margin="16,56,0,0" VerticalAlignment="Top" Width="118" Command="{Binding SelectPreviewArea}" IsEnabled="{Binding PrevieAreaEnable}" Height="89"/>
         <Button Content="Record" HorizontalAlignment="Left" Margin="192,56,0,0" VerticalAlignment="Top" Width="120" Command="{Binding RecordCapture}" Height="89"/>
         <Ellipse Fill="#FF0000" HorizontalAlignment="Left" Height="26" Margin="15,12,0,0" Stroke="#F00000" VerticalAlignment="Top" Width="26" Visibility="{Binding EnableRecordMark}" />
-        <Label Content="{Binding TimerValue}" HorizontalAlignment="Left" Margin="55,13,0,0" VerticalAlignment="Top" Visibility="{Binding EnableRecordTime}"/>
+        <Label Content="{Binding TimerValue}" HorizontalAlignment="Left" Margin="55,13,0,0" VerticalAlignment="Top" Visibility="{Binding EnableRecordTime}" />
 
     </Grid>
 </Window>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reactive.Disposables;
+using System.Threading;
 
 namespace WinScreenRec.ControlWindow
 {
@@ -14,6 +15,16 @@ namespace WinScreenRec.ControlWindow
         CaptureAreaWindow m_CaptureAreaWindow = new CaptureAreaWindow();
         ControlModel m_ControlModel = new ControlModel();
         bool IsCaputureAreaView = false;
+        bool IsWindowClose = true;
+
+        public ControlViewModel()
+        {
+            Thread recordThread;
+            recordThread = new Thread(new ThreadStart(() => {
+                GetRecordTimerAsync();
+            }));
+            recordThread.Start();
+        }
 
         private DelegateCommand _SelectPreviewArea = null;
         public DelegateCommand SelectPreviewArea 
@@ -76,7 +87,8 @@ namespace WinScreenRec.ControlWindow
             }
             set
             {
-                EnableRecordTime = value;
+                _EnableRecordTime = value;
+                OnPropertyChanged(nameof(EnableRecordTime));
             }
         }
 
@@ -88,7 +100,8 @@ namespace WinScreenRec.ControlWindow
             }
             set
             {
-                TimerValue = value;
+                _TimerValue = value;
+                OnPropertyChanged(nameof(TimerValue));
             }
         }
 
@@ -133,8 +146,18 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
+        public void GetRecordTimerAsync()
+        {
+            while (IsWindowClose)
+            {
+                TimerValue = m_ControlModel.GetTimer();
+                Thread.Sleep(500);
+            }
+        }
+
         private void CloseWindowFunc()
         {
+            IsWindowClose = false;
             m_ControlModel.CloseControlWindow();
             m_CaptureAreaWindow.Close();
         }

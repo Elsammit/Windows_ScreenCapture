@@ -140,7 +140,6 @@ namespace WinScreenRec
             }
         }
 
-
         private bool CanExecute()
         {
             return true;

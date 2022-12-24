@@ -9,6 +9,7 @@ namespace WinScreenRec.ControlWindow
 {
     class ControlModel
     {
+
         public ControlModel()
         {
             Thread thread;
@@ -36,6 +37,11 @@ namespace WinScreenRec.ControlWindow
         public void StopRecord()
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = 2;
+        }
+
+        public string GetTimer()
+        {
+            return CapAreaViewModel.m_CapAreaModel.RecordTimer;
         }
 
         public void CloseControlWindow()

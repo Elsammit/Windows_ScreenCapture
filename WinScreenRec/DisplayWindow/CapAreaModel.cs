@@ -33,7 +33,7 @@ namespace WinScreenRec
         public bool isStartPrev { set; get; } = true;   // Start preview flag(start:true, not start:false).
         public bool IsMouseDown { set; get; } = false;  // Is mouse down ? (Yes:true, No:false).
 
-        public string 
+        public string RecordTimer { set; get; } = "";
 
 
         public delegate void SetRectInformation(double rectHeight, double rectWidth, string rectMargin);
@@ -117,6 +117,7 @@ namespace WinScreenRec
                 System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             while (isStartPrev)
             {
+                ChangeCntToTimer(m_ImgProcess.GetRecordCount());
                 ret = CaputureScreen(ref bitmap);
                 if (!ret) { isStartPrev = ret; }
             }
@@ -151,6 +152,14 @@ namespace WinScreenRec
             m_ImgProcess.GetCaptureImage(isStartRec, m_RECT, ref bitmap);
 
             return ret;
+        }
+
+        void ChangeCntToTimer(int timerCnt)
+        {
+            int minutes = timerCnt / 10 / 60;
+            int seconds = timerCnt / 10 % 60;
+
+            RecordTimer = minutes.ToString() + ":" + seconds.ToString();
         }
     }
 }
