@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reactive.Disposables;
+using System.Threading;
+using System.Windows;
 
 namespace WinScreenRec.ControlWindow
 {
@@ -14,6 +16,16 @@ namespace WinScreenRec.ControlWindow
         CaptureAreaWindow m_CaptureAreaWindow = new CaptureAreaWindow();
         ControlModel m_ControlModel = new ControlModel();
         bool IsCaputureAreaView = false;
+        bool IsWindowClose = true;
+
+        public ControlViewModel()
+        {
+            Thread recordThread;
+            recordThread = new Thread(new ThreadStart(() => {
+                GetRecordTimerAsync();
+            }));
+            recordThread.Start();
+        }
 
         private DelegateCommand _SelectPreviewArea = null;
         public DelegateCommand SelectPreviewArea 
@@ -76,7 +88,8 @@ namespace WinScreenRec.ControlWindow
             }
             set
             {
-                EnableRecordTime = value;
+                _EnableRecordTime = value;
+                OnPropertyChanged(nameof(EnableRecordTime));
             }
         }
 
@@ -88,9 +101,24 @@ namespace WinScreenRec.ControlWindow
             }
             set
             {
-                TimerValue = value;
+                _TimerValue = value;
+                OnPropertyChanged(nameof(TimerValue));
             }
         }
+
+        private bool _PrevieAreaEnable = true;
+        public bool PrevieAreaEnable {
+            get
+            {
+                return _PrevieAreaEnable;
+            }
+            set
+            {
+                _PrevieAreaEnable = value;
+                OnPropertyChanged(nameof(PrevieAreaEnable));
+            }
+        }
+
 
         private void ViewPreviewAreaFunc()
         {
@@ -116,6 +144,7 @@ namespace WinScreenRec.ControlWindow
                 dialog.Filter = "動画ファイル|*.mp4";
                 if (dialog.ShowDialog() == true)
                 {
+                    PrevieAreaEnable = false;
                     EnableRecordTime = "Visible";
                     EnableRecordMark = "Visible";
                     m_CaptureAreaWindow.Hide();
@@ -126,15 +155,32 @@ namespace WinScreenRec.ControlWindow
             }
             else
             {
+                PrevieAreaEnable = true;
                 EnableRecordTime = "Hidden";
                 EnableRecordMark = "Hidden";
                 m_ControlModel.StopRecord();
                 Console.WriteLine("Recording stop");
+                MessageBox.Show("Record Finish !!");
+            }
+        }
+
+        public void GetRecordTimerAsync()
+        {
+            while (IsWindowClose)
+            {
+                TimerValue = m_ControlModel.GetTimer();
+                Thread.Sleep(500);
+
+                if (m_ControlModel.GetTimeCounter() > 100)
+                {
+                    RecordCaptureFunc();
+                }
             }
         }
 
         private void CloseWindowFunc()
         {
+            IsWindowClose = false;
             m_ControlModel.CloseControlWindow();
             m_CaptureAreaWindow.Close();
         }
