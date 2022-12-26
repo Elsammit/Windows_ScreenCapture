@@ -34,6 +34,7 @@ namespace WinScreenRec
         public bool IsMouseDown { set; get; } = false;  // Is mouse down ? (Yes:true, No:false).
 
         public string RecordTimer { set; get; } = "";
+        public int RecordCounter { set; get; } = 0;
 
 
         public delegate void SetRectInformation(double rectHeight, double rectWidth, string rectMargin);
@@ -159,7 +160,8 @@ namespace WinScreenRec
             int minutes = timerCnt / 10 / 60;
             int seconds = timerCnt / 10 % 60;
 
-            RecordTimer = minutes.ToString() + ":" + seconds.ToString();
+            RecordTimer = minutes.ToString("00") + ":" + seconds.ToString("00");
+            RecordCounter = timerCnt;
         }
     }
 }

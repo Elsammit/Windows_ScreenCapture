@@ -112,7 +112,7 @@ namespace WinScreenRec
             {
                 Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
 
-                if (isStartRec == 1 && writer.IsOpened())
+                if (isStartRec == 1 && writer != null && writer.IsOpened())
                 {
                     // You can't record images without it !!
                     Cv2.CvtColor(mat, mat, ColorConversionCodes.BGR2RGB);
@@ -125,6 +125,7 @@ namespace WinScreenRec
                     if (writer != null && writer.IsOpened())
                     {
                         isStartRec = 0;
+                        RecordCnt = 0;
                         writer.Release();
                     }
                 }

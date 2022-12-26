@@ -44,6 +44,11 @@ namespace WinScreenRec.ControlWindow
             return CapAreaViewModel.m_CapAreaModel.RecordTimer;
         }
 
+        public int GetTimeCounter()
+        {
+            return CapAreaViewModel.m_CapAreaModel.RecordCounter;
+        }
+
         public void CloseControlWindow()
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = 2;

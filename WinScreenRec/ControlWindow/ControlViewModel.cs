@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reactive.Disposables;
 using System.Threading;
+using System.Windows;
 
 namespace WinScreenRec.ControlWindow
 {
@@ -105,6 +106,20 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
+        private bool _PrevieAreaEnable = true;
+        public bool PrevieAreaEnable {
+            get
+            {
+                return _PrevieAreaEnable;
+            }
+            set
+            {
+                _PrevieAreaEnable = value;
+                OnPropertyChanged(nameof(PrevieAreaEnable));
+            }
+        }
+
+
         private void ViewPreviewAreaFunc()
         {
             IsCaputureAreaView = !IsCaputureAreaView;
@@ -129,6 +144,7 @@ namespace WinScreenRec.ControlWindow
                 dialog.Filter = "動画ファイル|*.mp4";
                 if (dialog.ShowDialog() == true)
                 {
+                    PrevieAreaEnable = false;
                     EnableRecordTime = "Visible";
                     EnableRecordMark = "Visible";
                     m_CaptureAreaWindow.Hide();
@@ -139,10 +155,12 @@ namespace WinScreenRec.ControlWindow
             }
             else
             {
+                PrevieAreaEnable = true;
                 EnableRecordTime = "Hidden";
                 EnableRecordMark = "Hidden";
                 m_ControlModel.StopRecord();
                 Console.WriteLine("Recording stop");
+                MessageBox.Show("Record Finish !!");
             }
         }
 
@@ -152,6 +170,11 @@ namespace WinScreenRec.ControlWindow
             {
                 TimerValue = m_ControlModel.GetTimer();
                 Thread.Sleep(500);
+
+                if (m_ControlModel.GetTimeCounter() > 100)
+                {
+                    RecordCaptureFunc();
+                }
             }
         }
 
