@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Controls;
 using System.Linq;
 using System.Threading;
+using WinScreenRec.Reference;
 
 namespace WinScreenRec
 {
@@ -29,12 +30,12 @@ namespace WinScreenRec
         public double RectWidth { set; get; }       // Recording area width.
         public string RectangleMargin { set; get; } // Display Rectangle area position.
 
-        public int isStartRec { set; get; } = 0;   // Start record flag(start:true, not start:false).
+        public int isStartRec { set; get; } = Define.ISRECSTANBY;   // Start record flag(stanby:0, starting:1, stopping:2).
         public bool isStartPrev { set; get; } = true;   // Start preview flag(start:true, not start:false).
         public bool IsMouseDown { set; get; } = false;  // Is mouse down ? (Yes:true, No:false).
 
-        public string RecordTimer { set; get; } = "";
-        public int RecordCounter { set; get; } = 0;
+        public string RecordTimer { set; get; } = "";   // Recording Time.
+        public int RecordCounter { set; get; } = 0;     // Recording Counter (for Recording stop). 
 
 
         public delegate void SetRectInformation(double rectHeight, double rectWidth, string rectMargin);
@@ -42,13 +43,11 @@ namespace WinScreenRec
         {
         }
 
-        // Position get function..
+        // Position get function.
         public Position Getposition()
         {
             return position;
         }
-
-
 
         /// <summary>
         /// Set record file path.
@@ -69,6 +68,8 @@ namespace WinScreenRec
         {
             double Xpos = RectLeft;
             double Ypos = RectTop;
+
+            // If the mouse is being held down, change the area.
             if (IsMouseDown)
             {
                 RectHeight = Math.Abs(pos.Y - RectTop);
@@ -108,18 +109,21 @@ namespace WinScreenRec
 
 
         /// <summary>
-        /// 
+        /// Movie Capture thread.
         /// </summary>
         public void CaptureMovieAsync()
         {
             bool ret = true;
+
+            // Get the window area.
             var bitmap = new System.Drawing.Bitmap(
                 (int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight,
                 System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            
             while (isStartPrev)
             {
-                ChangeCntToTimer(m_ImgProcess.GetRecordCount());
-                ret = CaputureScreen(ref bitmap);
+                ChangeCntToTimer(m_ImgProcess.GetRecordCount());    // Timer count is up.
+                ret = CaputureScreen(ref bitmap);                   
                 if (!ret) { isStartPrev = ret; }
             }
             bitmap.Dispose();
@@ -135,6 +139,9 @@ namespace WinScreenRec
             bool ret = true;
 
             Position position = Getposition();
+
+            // If position is not select, caputuring window all area.
+            // If an area is selected, only the selected area is captured.
             if (position.width <= 0 || position.height <= 0)
             {
                 m_RECT.right = (int)SystemParameters.PrimaryScreenWidth;
@@ -155,6 +162,10 @@ namespace WinScreenRec
             return ret;
         }
 
+        /// <summary>
+        /// Change count to timer.
+        /// </summary>
+        /// <param name="timerCnt">timer count</param>
         void ChangeCntToTimer(int timerCnt)
         {
             int minutes = timerCnt / 10 / 60;

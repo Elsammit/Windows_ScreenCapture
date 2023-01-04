@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using System.Drawing;
-using System.Windows.Interop;
-using System.Threading;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.Runtime.InteropServices;
+using WinScreenRec.Reference;
 
 namespace WinScreenRec
 {
@@ -94,7 +92,6 @@ namespace WinScreenRec
         private bool WriteVideo(int isStartRec, ref Bitmap screenBmp, RECT rect)
         {
             m_recordData = rect;
-            //Mat mat = new Mat();
 
             int capWidth = m_recordData.right - m_recordData.left;
             int capHeight = m_recordData.bottom - m_recordData.top;
@@ -112,7 +109,7 @@ namespace WinScreenRec
             {
                 Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
 
-                if (isStartRec == 1 && writer != null && writer.IsOpened())
+                if (isStartRec == Define.ISRECSTART && writer != null && writer.IsOpened())
                 {
                     // You can't record images without it !!
                     Cv2.CvtColor(mat, mat, ColorConversionCodes.BGR2RGB);
@@ -120,11 +117,11 @@ namespace WinScreenRec
                     writer.Write(mat);
                     RecordCnt++;
                 }
-                else if(isStartRec == 2)
+                else if(isStartRec == Define.ISRECSTOP)
                 {
                     if (writer != null && writer.IsOpened())
                     {
-                        isStartRec = 0;
+                        isStartRec = Define.ISRECSTANBY;
                         RecordCnt = 0;
                         writer.Release();
                     }
