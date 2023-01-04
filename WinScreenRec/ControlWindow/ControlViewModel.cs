@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Reactive.Disposables;
 using System.Threading;
 using System.Windows;
+using WinScreenRec.Reference;
 
 namespace WinScreenRec.ControlWindow
 {
@@ -67,7 +68,7 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
-        private string _EnableRecordMark = "Hidden";
+        private string _EnableRecordMark = Define.ISWIDGETHIDDEN;
         public string EnableRecordMark {
             get
             {
@@ -80,7 +81,7 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
-        private string _EnableRecordTime = "Hidden";
+        private string _EnableRecordTime = Define.ISWIDGETHIDDEN;
         public string EnableRecordTime {
             get
             {
@@ -137,16 +138,16 @@ namespace WinScreenRec.ControlWindow
 
         private void RecordCaptureFunc()
         {
-            if (m_ControlModel.CheckIsRecord() != 1)
+            if (m_ControlModel.CheckIsRecord() != Define.ISRECSTART)
             {
                 var dialog = new SaveFileDialog();
-                dialog.Title = "ファイルを保存";
-                dialog.Filter = "動画ファイル|*.mp4";
+                dialog.Title = "Save File";
+                dialog.Filter = "video file|*.mp4";
                 if (dialog.ShowDialog() == true)
                 {
                     PrevieAreaEnable = false;
-                    EnableRecordTime = "Visible";
-                    EnableRecordMark = "Visible";
+                    EnableRecordTime = Define.ISWIDGETVISIBLE;
+                    EnableRecordMark = Define.ISWIDGETVISIBLE;
                     m_CaptureAreaWindow.Hide();
                     m_ControlModel.StartRecord();
                     m_ControlModel.SetFilePath(dialog.FileName);
@@ -156,8 +157,8 @@ namespace WinScreenRec.ControlWindow
             else
             {
                 PrevieAreaEnable = true;
-                EnableRecordTime = "Hidden";
-                EnableRecordMark = "Hidden";
+                EnableRecordTime = Define.ISWIDGETHIDDEN;
+                EnableRecordMark = Define.ISWIDGETHIDDEN;
                 m_ControlModel.StopRecord();
                 Console.WriteLine("Recording stop");
                 MessageBox.Show("Record Finish !!");
@@ -171,7 +172,7 @@ namespace WinScreenRec.ControlWindow
                 TimerValue = m_ControlModel.GetTimer();
                 Thread.Sleep(500);
 
-                if (m_ControlModel.GetTimeCounter() > 100)
+                if (m_ControlModel.GetTimeCounter() > Define.MAXRECORDTIME * 10)
                 {
                     RecordCaptureFunc();
                 }

@@ -5,6 +5,7 @@ using System.Windows.Interop;
 using Microsoft.Win32;
 using Reactive.Bindings;
 using System.Windows.Input;
+using WinScreenRec.Reference;
 
 namespace WinScreenRec
 {
@@ -56,7 +57,7 @@ namespace WinScreenRec
                 if (_MouseLeftBtnDwn == null)
                 {
                     _MouseLeftBtnDwn = new ReactiveCommand<Object>().WithSubscribe(obj => {
-                        if (m_CapAreaModel.isStartRec != 1)
+                        if (m_CapAreaModel.isStartRec != Define.ISRECSTART)
                         {
                             var ele = (IInputElement)obj;
                             var pos = Mouse.GetPosition(ele);
