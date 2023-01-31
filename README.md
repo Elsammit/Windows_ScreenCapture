@@ -5,22 +5,37 @@
 自分で指定したエリアに限定して録画をすることができます。
 
 
+### コントロール画面
 
-### 起動時の画面
+アプリ起動時にコントロール画面が表示されます。
+こちらのコントロール画面にて録画の開始やエリア選択指示を行います。
 
-録画データは.wmvファイルです。
+Select Record Area：Window画面上のエリア選択画面が表示され、録画エリアを決めることができます。
+Record：選択されたエリアの録画が開始できます。
 
-![gif](https://github.com/Elsammit/ScreenCapture/blob/master/Sample/AppImage.gif)
+![png](https://github.com/Elsammit/Windows_ScreenCapture/blob/main/Sample/TitlePage.png)
 
+
+### エリア選択画面
+
+Select Record Areaボタンを選択すると画面が薄灰色に変化し、エリア選択画面に遷移します。
+この状態でマウスを操作することで録画エリアを選択できます。
+尚、録画エリアは赤色枠になります。
+
+![gif](https://github.com/Elsammit/Windows_ScreenCapture/blob/main/Sample/WindowRec1.gif)
 
 
 ### 録画中の画面
 
-録画中画面はこちらの通り、右上にRecと録画時間が表示されます。
+Recordボタンを押すと録画中画面になります。
+エリア選択画面で選択した赤枠は消えてしまいますが、
+録画中はエリア選択画面で選択したエリアのみ録画を行います。
 
-録画を終了する際には右下録画停止ボタンを押してください。
+録画を終了する際には再度Recordボタンを押してください。
+終了すると、メッセージが表示されます。
+録画データは.mp4ファイルです。
 
-![gif](https://github.com/Elsammit/ScreenCapture/blob/master/Sample/AfterRec.gif)
+![gif](https://github.com/Elsammit/Windows_ScreenCapture/blob/main/Sample/WindowRec2.gif)
 
 
 
@@ -28,7 +43,7 @@
 
 録画した結果はこちらのように指定したエリアのみが録画されます。
 
-![gif](https://github.com/Elsammit/ScreenCapture/blob/master/Sample/Record.gif)
+![gif](https://github.com/Elsammit/Windows_ScreenCapture/blob/main/Sample/RecMovie.gif)
 
 
 ## 動作確認環境
@@ -36,13 +51,6 @@
 　・OS：Windows10 64bit
 
 　・メモリ：8GB以上
-　
-　・ディスプレイ：デュアルディスプレイ以上で使用ください。
- 
-　　※シングルディスプレイですと、
-
-　　　アプリ上に表示される映像が繰り返されてしまい、正しくスクリーンを録画できなくなります。
-   
    
 　・ディスプレイ解像度：1920x1080
 
@@ -51,14 +59,16 @@
 
 1.アプリを立ち上げる
 
-2.エリアを指定する
+2. Select Record Areaボタン押下する
 
-3.録画ボタンをクリック
+3.エリアを指定する
+
+4.Recordボタンをクリック
 
 
 ## 注意事項
 ・デュアルディスプレイ以上で使用している場合、プライマリディスプレイのみが録画対象になります。
 
-・録画ファイルのフォーマットはwmv固定です。
+・録画ファイルのフォーマットはmp4固定です。
 
 ・録画時間は最長30分です(30分を超えると強制的に録画終了します)。
