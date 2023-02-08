@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Linq;
 using System.Threading;
 using WinScreenRec.Reference;
+using System.Windows.Input;
+using System.Windows.Forms;
 
 namespace WinScreenRec
 {
@@ -94,7 +96,7 @@ namespace WinScreenRec
                     Ypos = RectTop;
                 }
 
-                var window = Application.Current.Windows.OfType<System.Windows.Window>().FirstOrDefault(w => w is CaptureAreaWindow);
+                var window = System.Windows.Application.Current.Windows.OfType<System.Windows.Window>().FirstOrDefault(w => w is CaptureAreaWindow);
                 var rectCanvas = (Canvas)window.FindName("RectArea");
 
 
@@ -122,6 +124,11 @@ namespace WinScreenRec
             
             while (isStartPrev)
             {
+                System.Windows.Forms.Cursor Cursor = 
+                    new System.Windows.Forms.Cursor(System.Windows.Forms.Cursor.Current.Handle);
+                System.Drawing.Point cPoint = System.Windows.Forms.Cursor.Position;
+                Console.WriteLine("Cpoint X:{0}, Y{1}", cPoint.X, cPoint.Y);
+
                 ChangeCntToTimer(m_ImgProcess.GetRecordCount());    // Timer count is up.
                 ret = CaputureScreen(ref bitmap);                   
                 if (!ret) { isStartPrev = ret; }
