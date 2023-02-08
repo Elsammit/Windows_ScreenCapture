@@ -33,7 +33,7 @@ namespace WinScreenRec
         /// Initialize video writer.
         /// </summary>
         /// <param name="rect">Cutting rectangle</param>
-        public void InitVideoWriter(RECT rect)
+        public void InitVideoWriter()
         {
             int width = m_recordData.right - m_recordData.left;
             int height = m_recordData.bottom - m_recordData.top;
@@ -49,7 +49,7 @@ namespace WinScreenRec
         public void SetFilePath(string filePath, RECT rect)
         {
             RecordFilePath = filePath;
-            InitVideoWriter(rect);
+            InitVideoWriter();
         }
 
         public int GetRecordCount()
@@ -124,6 +124,13 @@ namespace WinScreenRec
                         isStartRec = Define.ISRECSTANBY;
                         RecordCnt = 0;
                         writer.Release();
+                    }
+                }
+                else
+                {
+                    if(writer != null && !writer.IsOpened())
+                    {
+                        InitVideoWriter();
                     }
                 }
                 //Cv2.ImShow("test", mat);

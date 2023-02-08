@@ -148,6 +148,8 @@ namespace WinScreenRec.ControlWindow
                     PrevieAreaEnable = false;
                     EnableRecordTime = Define.ISWIDGETVISIBLE;
                     EnableRecordMark = Define.ISWIDGETVISIBLE;
+
+                    IsCaputureAreaView = false;
                     m_CaptureAreaWindow.Hide();
                     m_ControlModel.StartRecord();
                     m_ControlModel.SetFilePath(dialog.FileName);
