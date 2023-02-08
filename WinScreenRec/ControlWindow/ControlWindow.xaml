@@ -28,7 +28,7 @@
             Height="89"
         />
         <Button 
-            Content="Record" 
+            Content="{Binding RecordContent}" 
             Margin="179,56,25,0" 
             VerticalAlignment="Top" 
             Command="{Binding RecordCapture}" 

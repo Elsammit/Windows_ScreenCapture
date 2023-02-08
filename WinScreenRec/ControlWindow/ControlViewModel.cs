@@ -26,7 +26,20 @@ namespace WinScreenRec.ControlWindow
                 GetRecordTimerAsync();
             }));
             recordThread.Start();
+
+            RecordContent = "Record";
         }
+
+        private String _RecordContent;
+        public String RecordContent {
+            get { return _RecordContent; }
+            set
+            {
+                _RecordContent = value;
+                OnPropertyChanged(nameof(RecordContent));
+            }
+        }
+
 
         private DelegateCommand _SelectPreviewArea = null;
         public DelegateCommand SelectPreviewArea 
@@ -153,6 +166,8 @@ namespace WinScreenRec.ControlWindow
                     m_CaptureAreaWindow.Hide();
                     m_ControlModel.StartRecord();
                     m_ControlModel.SetFilePath(dialog.FileName);
+                    RecordContent = "Stop";
+
                     Console.WriteLine("Recoding start");
                 }
             }
@@ -162,6 +177,8 @@ namespace WinScreenRec.ControlWindow
                 EnableRecordTime = Define.ISWIDGETHIDDEN;
                 EnableRecordMark = Define.ISWIDGETHIDDEN;
                 m_ControlModel.StopRecord();
+                RecordContent = "Record";
+                
                 Console.WriteLine("Recording stop");
                 MessageBox.Show("Record Finish !!");
             }
