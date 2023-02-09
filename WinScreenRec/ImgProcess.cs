@@ -30,7 +30,6 @@ namespace WinScreenRec
         string RecordFilePath = "";                                     // Record file path.
         RECT m_recordData = new RECT();                                 // Record area.
         System.Drawing.Point m_mousePos = new System.Drawing.Point();   // Mouse Position.
-        bool[] OnMouseDown = new bool[2];
         Scalar CursorColor = new Scalar();
         Bitmap bmp = null;
 
