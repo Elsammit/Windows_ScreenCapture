@@ -22,9 +22,16 @@ namespace WinScreenRec
             public int bottom;
         }
 
-        VideoWriter writer = null;  // Video writer for recording
-        string RecordFilePath = ""; // Record file path.
-        RECT m_recordData = new RECT(); // Record area.          
+        Scalar BLUE = new Scalar(255, 0, 0);
+        Scalar RED = new Scalar(0, 0, 255);
+        Scalar GREEN = new Scalar(0, 255, 0);
+
+        VideoWriter writer = null;                                      // Video writer for recording
+        string RecordFilePath = "";                                     // Record file path.
+        RECT m_recordData = new RECT();                                 // Record area.
+        System.Drawing.Point m_mousePos = new System.Drawing.Point();   // Mouse Position.
+        bool[] OnMouseDown = new bool[2];
+        Scalar CursorColor = new Scalar();
         Bitmap bmp = null;
 
         int RecordCnt = 0;
@@ -82,6 +89,36 @@ namespace WinScreenRec
             return ret;
         }
 
+        public void CalcMousePositionFromRect(RECT rect, System.Drawing.Point mousePos)
+        {
+            if(rect.left <= mousePos.X && rect.right >= mousePos.X &&
+                rect.top <= mousePos.Y && rect.bottom >= mousePos.Y)
+            {
+                m_mousePos.X = mousePos.X - rect.left;
+                m_mousePos.Y = mousePos.Y - rect.top;
+            }
+            else
+            {
+                m_mousePos.X = -1;
+                m_mousePos.Y = -1;
+            }
+        }
+
+        public void SetMouseCursorColor(bool leftBtn, bool rightBtn)
+        {
+            if(leftBtn && !rightBtn)
+            {
+                CursorColor = RED;
+            }else if (!leftBtn && rightBtn)
+            {
+                CursorColor = GREEN;
+            }
+            else
+            {
+                CursorColor = BLUE;
+            }
+        }
+
         /// <summary>
         /// Video write to file.
         /// </summary>
@@ -108,12 +145,14 @@ namespace WinScreenRec
             using (Mat mat = BitmapConverter.ToMat(bmp))
             {
                 Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
+                Cv2.Circle(mat, m_mousePos.X, m_mousePos.Y, 3, CursorColor, 3, LineTypes.AntiAlias);
 
                 if (isStartRec == Define.ISRECSTART && writer != null && writer.IsOpened())
                 {
                     // You can't record images without it !!
                     Cv2.CvtColor(mat, mat, ColorConversionCodes.BGR2RGB);
                     Cv2.CvtColor(mat, mat, ColorConversionCodes.RGB2BGR);
+
                     writer.Write(mat);
                     RecordCnt++;
                 }
@@ -133,7 +172,7 @@ namespace WinScreenRec
                         InitVideoWriter();
                     }
                 }
-                //Cv2.ImShow("test", mat);
+                // Cv2.ImShow("test", mat);
                 Cv2.WaitKey(60);
             }
             bmp.Dispose();
