@@ -10,9 +10,12 @@ namespace WinScreenRec.ControlWindow
 {
     class ControlModel
     {
+        AudioProcess m_AudioProcess;
 
         public ControlModel()
         {
+            m_AudioProcess = new AudioProcess();
+
             Thread thread;
             thread = new Thread(new ThreadStart(() =>{ 
                 CapAreaViewModel.m_CapAreaModel.CaptureMovieAsync();
@@ -44,6 +47,7 @@ namespace WinScreenRec.ControlWindow
         public void StartRecord()
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = Define.ISRECSTART;
+            m_AudioProcess.AudioRecProcessStart();
         }
 
         /// <summary>
@@ -52,6 +56,7 @@ namespace WinScreenRec.ControlWindow
         public void StopRecord()
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = Define.ISRECSTOP;
+            m_AudioProcess.AudioRecProcessStop();
         }
 
         /// <summary>
