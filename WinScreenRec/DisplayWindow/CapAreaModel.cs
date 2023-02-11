@@ -124,11 +124,6 @@ namespace WinScreenRec
             
             while (isStartPrev)
             {
-                System.Windows.Forms.Cursor Cursor = 
-                    new System.Windows.Forms.Cursor(System.Windows.Forms.Cursor.Current.Handle);
-                System.Drawing.Point cPoint = System.Windows.Forms.Cursor.Position;
-                Console.WriteLine("Cpoint X:{0}, Y{1}", cPoint.X, cPoint.Y);
-
                 ChangeCntToTimer(m_ImgProcess.GetRecordCount());    // Timer count is up.
                 ret = CaputureScreen(ref bitmap);                   
                 if (!ret) { isStartPrev = ret; }
@@ -163,7 +158,15 @@ namespace WinScreenRec
                 m_RECT.left = position.left;
                 m_RECT.top = position.top;
             }
+            System.Windows.Forms.Cursor Cursor =
+                new System.Windows.Forms.Cursor(System.Windows.Forms.Cursor.Current.Handle);
+            System.Drawing.Point cPoint = System.Windows.Forms.Cursor.Position;
 
+            m_ImgProcess.SetMouseCursorColor(
+                System.Windows.Forms.Control.MouseButtons.HasFlag(MouseButtons.Left),
+                System.Windows.Forms.Control.MouseButtons.HasFlag(MouseButtons.Right)
+            );
+            m_ImgProcess.CalcMousePositionFromRect(m_RECT, cPoint);
             m_ImgProcess.GetCaptureImage(isStartRec, m_RECT, ref bitmap);
 
             return ret;
