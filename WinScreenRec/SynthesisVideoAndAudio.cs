@@ -8,7 +8,23 @@ namespace WinScreenRec
 {
     class SynthesisVideoAndAudio
     {
-        string 
-        void 
+        private string OutputVideoPath = "";
+
+        void SetOutputVideoPath(string path)
+        {
+            OutputVideoPath = path;
+        } 
+
+        string GetOutputVideoPath()
+        {
+            return OutputVideoPath;
+        }
+
+        bool ExecSynthesis()
+        {
+            bool ret = true;
+
+            return ret;
+        }
     }
 }
