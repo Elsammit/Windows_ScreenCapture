@@ -8,5 +8,7 @@ namespace WinScreenRec
 {
     class SynthesisVideoAndAudio
     {
+        string 
+        void 
     }
 }

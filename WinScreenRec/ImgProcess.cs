@@ -172,7 +172,7 @@ namespace WinScreenRec
                     }
                 }
                 // Cv2.ImShow("test", mat);
-                Cv2.WaitKey(61);
+                Cv2.WaitKey(59);
             }
             bmp.Dispose();
 
