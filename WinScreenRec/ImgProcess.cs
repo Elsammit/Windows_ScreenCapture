@@ -33,6 +33,8 @@ namespace WinScreenRec
         Scalar CursorColor = new Scalar();
         Bitmap bmp = null;
 
+        SynthesisVideoAndAudio m_SynthesisVideoAndAudio = new SynthesisVideoAndAudio();
+
         int RecordCnt = 0;
 
         /// <summary>
@@ -162,6 +164,8 @@ namespace WinScreenRec
                         isStartRec = Define.ISRECSTANBY;
                         RecordCnt = 0;
                         writer.Release();
+
+                        //m_SynthesisVideoAndAudio.SetInput
                     }
                 }
                 else
