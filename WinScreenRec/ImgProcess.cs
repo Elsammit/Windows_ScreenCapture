@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using System.Drawing;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
@@ -29,10 +28,11 @@ namespace WinScreenRec
         VideoWriter writer = null;                                      // Video writer for recording
         string RecordFilePath = "";                                     // Record file path.
         RECT m_recordData = new RECT();                                 // Record area.
-        System.Drawing.Point m_mousePos = new System.Drawing.Point();   // Mouse Position.
-        Scalar CursorColor = new Scalar();
+        System.Drawing.Point m_mousePos = new System.Drawing.Point();   // Mouse position.
+        Scalar CursorColor = new Scalar();                              // Mouse cursor color.
         Bitmap bmp = null;
 
+        // Object generation for combining video and audio.
         SynthesisVideoAndAudio m_SynthesisVideoAndAudio = new SynthesisVideoAndAudio();
 
         int RecordCnt = 0;
@@ -81,8 +81,8 @@ namespace WinScreenRec
 
             if (!WriteVideo(isStartRec, ref screenBmp, rect))
             {
-                MessageBox.Show("正しくエリアを指定ください", "エリア指定エラー",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Circle the area correctly.", "Area designation error",
+                //        MessageBoxButton.OK, MessageBoxImage.Error);
                 ret = false;
             }
             bmpGraphics.Dispose();
@@ -90,32 +90,43 @@ namespace WinScreenRec
             return ret;
         }
 
+        /// <summary>
+        /// Mouse cursor position calculation in the area.
+        /// </summary>
+        /// <param name="rect">Video Area</param>
+        /// <param name="mousePos">Mouse position</param>
         public void CalcMousePositionFromRect(RECT rect, System.Drawing.Point mousePos)
         {
-            if(rect.left <= mousePos.X && rect.right >= mousePos.X &&
+            // If the mouse is in the area.
+            if (rect.left <= mousePos.X && rect.right >= mousePos.X &&
                 rect.top <= mousePos.Y && rect.bottom >= mousePos.Y)
             {
                 m_mousePos.X = mousePos.X - rect.left;
                 m_mousePos.Y = mousePos.Y - rect.top;
             }
             else
-            {
+            {   // If the mouse is not in the area.
                 m_mousePos.X = -1;
                 m_mousePos.Y = -1;
             }
         }
 
+        /// <summary>
+        /// Setting mouse cursor color.
+        /// </summary>
+        /// <param name="leftBtn">Click left mouse button</param>
+        /// <param name="rightBtn">Click right mouse button</param>
         public void SetMouseCursorColor(bool leftBtn, bool rightBtn)
         {
             if(leftBtn && !rightBtn)
-            {
+            {   // If click left button, mouse cursor change red.
                 CursorColor = RED;
             }else if (!leftBtn && rightBtn)
-            {
+            {  // If click left button, mouse cursor change green.
                 CursorColor = GREEN;
             }
             else
-            {
+            {  // If click both left and right button, mouse cursor change blue.
                 CursorColor = BLUE;
             }
         }
@@ -136,7 +147,7 @@ namespace WinScreenRec
          
             if (capHeight <= 0 || capWidth <= 0)
             {
-                Console.WriteLine(" size Error");
+                Console.WriteLine("size Error");
                 return false;
             }
             
