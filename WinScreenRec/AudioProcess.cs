@@ -15,24 +15,26 @@ namespace WinScreenRec
 
         public AudioProcess()
         {
-            InitializeAudioRecParam();
         }
         
-        public void AudioRecProcessStart() { WaveIn.StartRecording(); }
+        public void AudioRecProcessStart() 
+        {
+            InitializeAudioRecParam();
+            WaveIn.StartRecording(); 
+        }
 
         public void AudioRecProcessStop() { WaveIn.StopRecording(); }
 
         private void InitializeAudioRecParam()
         {
             WaveIn = new WasapiLoopbackCapture();
-            Writer = new WaveFileWriter("E:\\test.wav", WaveIn.WaveFormat);
+            Writer = new WaveFileWriter(Define.TEMPAUDIOPATH, WaveIn.WaveFormat);
             WaveIn.DataAvailable += OnDataAvailable;
             WaveIn.RecordingStopped += OnRecordingStopped;
         }
 
         private void OnRecordingStopped(object sender, StoppedEventArgs e)
         {
-            // Writer Close() needs to come first otherwise NAudio will lock up.
             if (Writer != null)
             {
                 Writer.Close();

@@ -33,6 +33,8 @@ namespace WinScreenRec
         Scalar CursorColor = new Scalar();
         Bitmap bmp = null;
 
+        SynthesisVideoAndAudio m_SynthesisVideoAndAudio = new SynthesisVideoAndAudio();
+
         int RecordCnt = 0;
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace WinScreenRec
         {
             int width = m_recordData.right - m_recordData.left;
             int height = m_recordData.bottom - m_recordData.top;
-            writer = new VideoWriter(RecordFilePath, FourCC.MP4V, 10,
+            writer = new VideoWriter(Define.TEMPVIDEOPATH, FourCC.MP4V, 10,
                     new OpenCvSharp.Size(width, height));
         }
 
@@ -162,6 +164,9 @@ namespace WinScreenRec
                         isStartRec = Define.ISRECSTANBY;
                         RecordCnt = 0;
                         writer.Release();
+
+                        m_SynthesisVideoAndAudio.SetOutputVideoPath(RecordFilePath);
+                        m_SynthesisVideoAndAudio.ExecSynthesis();
                     }
                 }
                 else
@@ -172,7 +177,7 @@ namespace WinScreenRec
                     }
                 }
                 // Cv2.ImShow("test", mat);
-                Cv2.WaitKey(61);
+                Cv2.WaitKey(48);
             }
             bmp.Dispose();
 
