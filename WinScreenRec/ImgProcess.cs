@@ -45,7 +45,7 @@ namespace WinScreenRec
         {
             int width = m_recordData.right - m_recordData.left;
             int height = m_recordData.bottom - m_recordData.top;
-            writer = new VideoWriter(RecordFilePath, FourCC.MP4V, 10,
+            writer = new VideoWriter(Define.TEMPVIDEOPATH, FourCC.MP4V, 10,
                     new OpenCvSharp.Size(width, height));
         }
 
@@ -165,7 +165,8 @@ namespace WinScreenRec
                         RecordCnt = 0;
                         writer.Release();
 
-                        //m_SynthesisVideoAndAudio.SetInput
+                        m_SynthesisVideoAndAudio.SetOutputVideoPath(RecordFilePath);
+                        m_SynthesisVideoAndAudio.ExecSynthesis();
                     }
                 }
                 else
@@ -176,7 +177,7 @@ namespace WinScreenRec
                     }
                 }
                 // Cv2.ImShow("test", mat);
-                Cv2.WaitKey(59);
+                Cv2.WaitKey(48);
             }
             bmp.Dispose();
 

@@ -16,5 +16,8 @@ namespace WinScreenRec.Reference
         public const string ISWIDGETHIDDEN = "Hidden";
 
         public const int MAXRECORDTIME = 30 * 60;
+
+        public const string TEMPVIDEOPATH = @"E:\tempMovies.mp4";
+        public const string TEMPAUDIOPATH = @"E:\tempAudio.wav";
     }
 }
