@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace WinScreenRec.Reference
 {
     static class Define
@@ -19,5 +14,8 @@ namespace WinScreenRec.Reference
 
         public const string TEMPVIDEOPATH = @"E:\tempMovies.mp4";
         public const string TEMPAUDIOPATH = @"E:\tempAudio.wav";
+
+        public const string ISRECORDINGCONTENT = "Stop";
+        public const string ISRECSTANDBYCONTENT = "Record";
     }
 }

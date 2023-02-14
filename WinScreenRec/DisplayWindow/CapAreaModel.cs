@@ -3,9 +3,7 @@ using System.Windows;
 using System.Drawing;
 using System.Windows.Controls;
 using System.Linq;
-using System.Threading;
 using WinScreenRec.Reference;
-using System.Windows.Input;
 using System.Windows.Forms;
 
 namespace WinScreenRec

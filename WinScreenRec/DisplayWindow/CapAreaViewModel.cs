@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Media.Imaging;
-using System.Windows.Interop;
-using Microsoft.Win32;
 using Reactive.Bindings;
 using System.Windows.Input;
 using WinScreenRec.Reference;

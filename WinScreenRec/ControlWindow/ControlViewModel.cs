@@ -1,10 +1,5 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reactive.Disposables;
 using System.Threading;
 using System.Windows;
 using WinScreenRec.Reference;
@@ -166,7 +161,7 @@ namespace WinScreenRec.ControlWindow
                     m_CaptureAreaWindow.Hide();
                     m_ControlModel.StartRecord();
                     m_ControlModel.SetFilePath(dialog.FileName);
-                    RecordContent = "Stop";
+                    RecordContent = Define.ISRECORDINGCONTENT;
 
                     Console.WriteLine("Recoding start");
                 }
@@ -177,7 +172,7 @@ namespace WinScreenRec.ControlWindow
                 EnableRecordTime = Define.ISWIDGETHIDDEN;
                 EnableRecordMark = Define.ISWIDGETHIDDEN;
                 m_ControlModel.StopRecord();
-                RecordContent = "Record";
+                RecordContent = Define.ISRECSTANDBYCONTENT;
                 
                 Console.WriteLine("Recording stop");
                 MessageBox.Show("Record Finish !!");
