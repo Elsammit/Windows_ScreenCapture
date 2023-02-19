@@ -8,7 +8,6 @@ namespace WinScreenRec.ControlWindow
 {
     class ControlViewModel : BindingBase
     {
-
         CaptureAreaWindow m_CaptureAreaWindow = new CaptureAreaWindow();
         ControlModel m_ControlModel = new ControlModel();
         bool IsCaputureAreaView = false;
