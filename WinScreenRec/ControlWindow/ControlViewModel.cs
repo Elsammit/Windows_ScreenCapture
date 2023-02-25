@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Drawing;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
 using WinScreenRec.Reference;
 
 namespace WinScreenRec.ControlWindow
@@ -36,11 +38,11 @@ namespace WinScreenRec.ControlWindow
 
 
         private DelegateCommand _SelectPreviewArea = null;
-        public DelegateCommand SelectPreviewArea 
+        public DelegateCommand SelectPreviewArea
         {
             get
             {
-                if(_SelectPreviewArea == null)
+                if (_SelectPreviewArea == null)
                 {
                     _SelectPreviewArea = new DelegateCommand(ViewPreviewAreaFunc, IsCmdTrue);
                 }
@@ -49,7 +51,7 @@ namespace WinScreenRec.ControlWindow
         }
 
         private DelegateCommand _RecordCapture = null;
-        public DelegateCommand RecordCapture 
+        public DelegateCommand RecordCapture
         {
             get
             {
@@ -60,6 +62,20 @@ namespace WinScreenRec.ControlWindow
                 return _RecordCapture;
             }
         }
+
+        private DelegateCommand _OnAudioAvailable = null;
+        public DelegateCommand OnAudioAvailable
+        {
+            get
+            {
+                if (_OnAudioAvailable == null)
+                {
+                    _OnAudioAvailable = new DelegateCommand(ChangeAudioStatus, IsCmdTrue);
+                }
+                return _OnAudioAvailable;
+            }
+        }
+
 
         private DelegateCommand _ClickCloseWindow = null;
 
@@ -127,6 +143,55 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
+        public bool ChangeColor { get; set; } = false;
+
+        private SolidColorBrush _AudioEnaColor = 
+            new SolidColorBrush(System.Windows.Media.Color.FromRgb(0,0,0));
+        public SolidColorBrush AudioEnaColor
+        {
+            get
+            {
+                return _AudioEnaColor;
+            }
+            set
+            {
+                _AudioEnaColor = value;
+                OnPropertyChanged(nameof(AudioEnaColor));
+            }
+        }
+
+        private string _AudioEnable = "Audio ON";
+        public string AudioEnable 
+        {
+            get
+            {
+                return _AudioEnable;
+            }
+            set
+            {
+                _AudioEnable = value;
+                OnPropertyChanged(nameof(AudioEnable));
+            }
+        }
+
+
+        private void ChangeAudioStatus()
+        {
+            Console.WriteLine(ChangeColor);
+            ChangeColor = !ChangeColor;
+            if (ChangeColor)
+            {
+                AudioEnable = "Audio OFF";
+                AudioEnaColor = 
+                    new SolidColorBrush(System.Windows.Media.Color.FromRgb(0xff, 0, 0));
+            }
+            else
+            {
+                AudioEnable = "Audio ON";
+                AudioEnaColor = 
+                    new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
+            }
+        }
 
         private void ViewPreviewAreaFunc()
         {
