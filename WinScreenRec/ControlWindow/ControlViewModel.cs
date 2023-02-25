@@ -177,8 +177,8 @@ namespace WinScreenRec.ControlWindow
 
         private void ChangeAudioStatus()
         {
-            Console.WriteLine(ChangeColor);
             ChangeColor = !ChangeColor;
+            m_ControlModel.SetIsAudioON(ChangeColor);
             if (ChangeColor)
             {
                 AudioEnable = "Audio OFF";
