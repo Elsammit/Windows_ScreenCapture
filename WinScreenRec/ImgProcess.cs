@@ -4,6 +4,7 @@ using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.Runtime.InteropServices;
 using WinScreenRec.Reference;
+using System.IO;
 
 namespace WinScreenRec
 {
@@ -31,6 +32,8 @@ namespace WinScreenRec
         System.Drawing.Point m_mousePos = new System.Drawing.Point();   // Mouse position.
         Scalar CursorColor = new Scalar();                              // Mouse cursor color.
         Bitmap bmp = null;
+
+        public bool IsAudioOn { set; get; } = false;
 
         // Object generation for combining video and audio.
         SynthesisVideoAndAudio m_SynthesisVideoAndAudio = new SynthesisVideoAndAudio();
@@ -176,8 +179,19 @@ namespace WinScreenRec
                         RecordCnt = 0;
                         writer.Release();
 
-                        m_SynthesisVideoAndAudio.SetOutputVideoPath(RecordFilePath);
-                        m_SynthesisVideoAndAudio.ExecSynthesis();
+                        if (IsAudioOn)
+                        {
+                            m_SynthesisVideoAndAudio.SetOutputVideoPath(RecordFilePath);
+                            m_SynthesisVideoAndAudio.ExecSynthesis();
+                        }
+                        else {
+                            if (File.Exists(RecordFilePath))
+                            {
+                                File.Delete(RecordFilePath);
+                            }
+                            Console.WriteLine("call off video");
+                            File.Copy(Define.TEMPVIDEOPATH, RecordFilePath);
+                        }
                     }
                 }
                 else

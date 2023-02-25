@@ -18,6 +18,11 @@ namespace WinScreenRec.ControlWindow
             thread.Start();
         }
 
+        public void SetIsAudioON(bool buf)
+        {
+            CapAreaViewModel.m_CapAreaModel.IsAudioON = buf;
+        }
+
         /// <summary>
         /// API to set file paths to variables.
         /// </summary>
@@ -42,7 +47,11 @@ namespace WinScreenRec.ControlWindow
         public void StartRecord()
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = Define.ISRECSTART;
-            m_AudioProcess.AudioRecProcessStart();
+
+            if (CapAreaViewModel.m_CapAreaModel.IsAudioON)
+            {
+                m_AudioProcess.AudioRecProcessStart();
+            }
         }
 
         /// <summary>
@@ -51,7 +60,11 @@ namespace WinScreenRec.ControlWindow
         public void StopRecord()
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = Define.ISRECSTOP;
-            m_AudioProcess.AudioRecProcessStop();
+
+            if (CapAreaViewModel.m_CapAreaModel.IsAudioON)
+            {
+                m_AudioProcess.AudioRecProcessStop();
+            }
         }
 
         /// <summary>
