@@ -34,9 +34,42 @@
             Command="{Binding RecordCapture}" 
             Height="89"
         />
-        <Ellipse Fill="#FF0000" HorizontalAlignment="Left" Height="26" Margin="15,12,0,0" Stroke="#F00000" VerticalAlignment="Top" Width="26" Visibility="{Binding EnableRecordMark}" />
-        <Label Content="{Binding TimerValue}" HorizontalAlignment="Left" Margin="55,12,0,0" VerticalAlignment="Top" Visibility="{Binding EnableRecordTime}" FontSize="18" />
-        <Label Content="Audio record" HorizontalAlignment="Left" Height="28" Margin="18,55,0,0" VerticalAlignment="Top" Width="92"/>
-        <Button Content="{Binding AudioEnable}" HorizontalAlignment="Left" Height="31" Margin="111,54,0,0" VerticalAlignment="Top" Width="66" Click="{Binding OnAudioAvailable}" Background="{Binding AudioEnaColor}"/>
+        <Ellipse 
+            Fill="#FF0000" 
+            HorizontalAlignment="Left" 
+            Height="26" 
+            Margin="15,12,0,0" 
+            Stroke="#F00000" 
+            VerticalAlignment="Top" 
+            Width="26" 
+            Visibility="{Binding EnableRecordMark}" 
+        />
+        <Label 
+            Content="{Binding TimerValue}" 
+            HorizontalAlignment="Left" 
+            Margin="55,12,0,0" 
+            VerticalAlignment="Top" 
+            Visibility="{Binding EnableRecordTime}" 
+            FontSize="18" 
+        />
+        <Label 
+            Content="Audio record" 
+            HorizontalAlignment="Left" 
+            Height="28" 
+            Margin="18,55,0,0" 
+            VerticalAlignment="Top" 
+            Width="92"
+        />
+        <Button 
+            Content="{Binding AudioEnable}" 
+            HorizontalAlignment="Left" 
+            Height="31" 
+            Margin="111,54,0,0" 
+            VerticalAlignment="Top" 
+            Width="66" 
+            Command="{Binding OnAudioAvailable}" 
+            Foreground="{Binding AudioEnaColor}"
+            FontWeight="Bold"
+        />
     </Grid>
 </Window>
