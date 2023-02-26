@@ -44,7 +44,7 @@ namespace WinScreenRec.ControlWindow
             {
                 if (_SelectPreviewArea == null)
                 {
-                    _SelectPreviewArea = new DelegateCommand(ViewPreviewAreaFunc, IsCmdTrue);
+                    _SelectPreviewArea = new DelegateCommand(ViewPreviewAreaFunc, IsRecording);
                 }
                 return _SelectPreviewArea;
             }
@@ -70,7 +70,7 @@ namespace WinScreenRec.ControlWindow
             {
                 if (_OnAudioAvailable == null)
                 {
-                    _OnAudioAvailable = new DelegateCommand(ChangeAudioStatus, IsCmdTrue);
+                    _OnAudioAvailable = new DelegateCommand(ChangeAudioStatus, IsRecording);
                 }
                 return _OnAudioAvailable;
             }
@@ -267,6 +267,19 @@ namespace WinScreenRec.ControlWindow
         private bool IsCmdTrue()
         {
             return true;
+        }
+
+        private bool IsRecording()
+        {
+            if(m_ControlModel.CheckIsRecord() != Define.ISRECSTART)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
     }

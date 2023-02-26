@@ -136,6 +136,7 @@ namespace WinScreenRec
                 ret = CaputureScreen(ref bitmap);                   
                 if (!ret) { isStartPrev = ret; }
             }
+            Console.WriteLine("Finish capture thread.");
             bitmap.Dispose();
         }
 
