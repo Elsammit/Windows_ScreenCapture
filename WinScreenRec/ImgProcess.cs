@@ -185,23 +185,20 @@ namespace WinScreenRec
                         isStartRec = Define.ISRECSTANBY;    // State to standby.
                         RecordCnt = 0;
                         writer.Release();
-                        Console.WriteLine("Is Stanby:{0}", IsAudioOn);
+                        if (File.Exists(RecordFilePath))
+                        {
+                            File.Delete(RecordFilePath);
+                        }
+
                         // When recording audio is enabled.
                         if (IsAudioOn)
                         {
                             m_SynthesisVideoAndAudio.SetOutputVideoPath(RecordFilePath);
                             m_SynthesisVideoAndAudio.ExecSynthesis();
                         }
-                        else {
-                            Console.WriteLine("RecordFilePath");
-                            if (File.Exists(RecordFilePath))
-                            {
-                                Console.WriteLine("deleted video");
-                                File.Delete(RecordFilePath);
-                            }
-                            Console.WriteLine("deleted video2");
+                        else 
+                        {
                             File.Copy(Define.TEMPVIDEOPATH, RecordFilePath);
-                            Console.WriteLine("call off video");
                         }
                     }
                 }

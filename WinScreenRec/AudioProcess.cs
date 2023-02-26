@@ -32,6 +32,9 @@ namespace WinScreenRec
         {
             if (Writer != null)
             {
+                var silenceBuffer = new byte[Writer.WaveFormat.AverageBytesPerSecond];
+                Writer.Write(silenceBuffer, 0, silenceBuffer.Length);
+
                 Writer.Close();
                 Writer = null;
             }
