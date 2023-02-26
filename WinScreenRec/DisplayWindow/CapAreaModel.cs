@@ -135,7 +135,9 @@ namespace WinScreenRec
                 ChangeCntToTimer(m_ImgProcess.GetRecordCount());    // Timer count is up.
                 ret = CaputureScreen(ref bitmap);                   
                 if (!ret) { isStartPrev = ret; }
+                Console.WriteLine("isStartPrev:{0}", isStartPrev);
             }
+            Console.WriteLine("Finish capture thread.");
             bitmap.Dispose();
         }
 

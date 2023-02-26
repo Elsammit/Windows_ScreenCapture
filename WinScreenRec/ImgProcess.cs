@@ -22,7 +22,7 @@ namespace WinScreenRec
             public int bottom;
         }
 
-        Scalar BLUE = new Scalar(255, 0, 0);
+        Scalar BLUE = new Scalar(255, 0, 0);                            
         Scalar RED = new Scalar(0, 0, 255);
         Scalar GREEN = new Scalar(0, 255, 0);
 
@@ -33,12 +33,12 @@ namespace WinScreenRec
         Scalar CursorColor = new Scalar();                              // Mouse cursor color.
         Bitmap bmp = null;
 
-        public bool IsAudioOn { set; get; } = false;
+        public bool IsAudioOn { set; get; } = false;                    // Audio Enable/Disable flag.
 
         // Object generation for combining video and audio.
         SynthesisVideoAndAudio m_SynthesisVideoAndAudio = new SynthesisVideoAndAudio();
 
-        int RecordCnt = 0;
+        int RecordCnt = 0;  // Recoring counter.
 
         /// <summary>
         /// Initialize video writer.
@@ -84,8 +84,6 @@ namespace WinScreenRec
 
             if (!WriteVideo(isStartRec, ref screenBmp, rect))
             {
-                //MessageBox.Show("Circle the area correctly.", "Area designation error",
-                //        MessageBoxButton.OK, MessageBoxImage.Error);
                 ret = false;
             }
             bmpGraphics.Dispose();
@@ -145,25 +143,33 @@ namespace WinScreenRec
         {
             m_recordData = rect;
 
+            // Calculate the capture area.
             int capWidth = m_recordData.right - m_recordData.left;
             int capHeight = m_recordData.bottom - m_recordData.top;
-         
+
+            // If the capture area is small.
             if (capHeight <= 0 || capWidth <= 0)
             {
                 Console.WriteLine("size Error");
                 return false;
             }
-            
-            Rectangle rectBuf = new System.Drawing.Rectangle(rect.left, rect.top,
-                        capWidth, capHeight);
+
+            // Create cutout area.
+            Rectangle rectBuf = 
+                new System.Drawing.Rectangle(rect.left, rect.top, capWidth, capHeight);
             bmp = screenBmp.Clone(rectBuf, screenBmp.PixelFormat);
             using (Mat mat = BitmapConverter.ToMat(bmp))
             {
+                // Resize capture size.
                 Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
+                
+                // Add mouse position.
                 Cv2.Circle(mat, m_mousePos.X, m_mousePos.Y, 3, CursorColor, 3, LineTypes.AntiAlias);
 
+                
                 if (isStartRec == Define.ISRECSTART && writer != null && writer.IsOpened())
-                {
+                {   // Writes to video file when in video recording state.
+
                     // You can't record images without it !!
                     Cv2.CvtColor(mat, mat, ColorConversionCodes.BGR2RGB);
                     Cv2.CvtColor(mat, mat, ColorConversionCodes.RGB2BGR);
@@ -172,25 +178,30 @@ namespace WinScreenRec
                     RecordCnt++;
                 }
                 else if(isStartRec == Define.ISRECSTOP)
-                {
+                {   // At the end of the video, 
+                    // the system goes into standby mode after the Close process of video creation.
                     if (writer != null && writer.IsOpened())
                     {
-                        isStartRec = Define.ISRECSTANBY;
+                        isStartRec = Define.ISRECSTANBY;    // State to standby.
                         RecordCnt = 0;
                         writer.Release();
-
+                        Console.WriteLine("Is Stanby:{0}", IsAudioOn);
+                        // When recording audio is enabled.
                         if (IsAudioOn)
                         {
                             m_SynthesisVideoAndAudio.SetOutputVideoPath(RecordFilePath);
                             m_SynthesisVideoAndAudio.ExecSynthesis();
                         }
                         else {
+                            Console.WriteLine("RecordFilePath");
                             if (File.Exists(RecordFilePath))
                             {
+                                Console.WriteLine("deleted video");
                                 File.Delete(RecordFilePath);
                             }
-                            Console.WriteLine("call off video");
+                            Console.WriteLine("deleted video2");
                             File.Copy(Define.TEMPVIDEOPATH, RecordFilePath);
+                            Console.WriteLine("call off video");
                         }
                     }
                 }

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using WinScreenRec.Reference;
 
 namespace WinScreenRec.ControlWindow
@@ -48,6 +49,9 @@ namespace WinScreenRec.ControlWindow
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = Define.ISRECSTART;
 
+            Console.WriteLine("IsAudioON:{0}", 
+                CapAreaViewModel.m_CapAreaModel.IsAudioON);
+
             if (CapAreaViewModel.m_CapAreaModel.IsAudioON)
             {
                 m_AudioProcess.AudioRecProcessStart();
@@ -60,6 +64,9 @@ namespace WinScreenRec.ControlWindow
         public void StopRecord()
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = Define.ISRECSTOP;
+
+            Console.WriteLine("IsAudioON:{0}",
+                CapAreaViewModel.m_CapAreaModel.IsAudioON);
 
             if (CapAreaViewModel.m_CapAreaModel.IsAudioON)
             {
@@ -90,6 +97,7 @@ namespace WinScreenRec.ControlWindow
         /// </summary>
         public void CloseControlWindow()
         {
+            Console.WriteLine("Close Control Window");
             CapAreaViewModel.m_CapAreaModel.isStartRec = Define.ISRECSTOP;
             CapAreaViewModel.m_CapAreaModel.isStartPrev = false;
         }
