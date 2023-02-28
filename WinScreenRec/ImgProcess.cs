@@ -40,6 +40,15 @@ namespace WinScreenRec
 
         int RecordCnt = 0;  // Recoring counter.
 
+
+        public bool IsUsingAudioEna
+        {
+            get
+            {
+                return m_SynthesisVideoAndAudio.UsingAudioEna;
+            }
+        }
+
         /// <summary>
         /// Initialize video writer.
         /// </summary>

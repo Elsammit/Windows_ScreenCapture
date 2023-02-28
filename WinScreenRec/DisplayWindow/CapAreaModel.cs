@@ -37,6 +37,15 @@ namespace WinScreenRec
         public string RecordTimer { set; get; } = "";   // Recording Time.
         public int RecordCounter { set; get; } = 0;     // Recording Counter (for Recording stop). 
 
+
+        public bool IsUsingAudioEna
+        {
+            get
+            {
+                return m_ImgProcess.IsUsingAudioEna;
+            }
+        }
+
         public bool IsAudioON {
             get
             {
