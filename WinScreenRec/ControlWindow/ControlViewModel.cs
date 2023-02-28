@@ -24,6 +24,8 @@ namespace WinScreenRec.ControlWindow
             recordThread.Start();
 
             RecordContent = "Record";
+
+            ChangeAudioStatus();
         }
 
         private String _RecordContent;
@@ -70,7 +72,7 @@ namespace WinScreenRec.ControlWindow
             {
                 if (_OnAudioAvailable == null)
                 {
-                    _OnAudioAvailable = new DelegateCommand(ChangeAudioStatus, IsRecording);
+                    _OnAudioAvailable = new DelegateCommand(ChangeAudioStatus, IsAudioChgEna);
                 }
                 return _OnAudioAvailable;
             }
@@ -181,13 +183,13 @@ namespace WinScreenRec.ControlWindow
             m_ControlModel.SetIsAudioON(ChangeColor);
             if (ChangeColor)
             {
-                AudioEnable = "Audio OFF";
+                AudioEnable = "Audio Rec. ON";
                 AudioEnaColor = 
                     new SolidColorBrush(System.Windows.Media.Color.FromRgb(0xff, 0, 0));
             }
             else
             {
-                AudioEnable = "Audio ON";
+                AudioEnable = "Audio Rec. OFF";
                 AudioEnaColor = 
                     new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
             }
@@ -279,7 +281,23 @@ namespace WinScreenRec.ControlWindow
             {
                 return false;
             }
-            
+        }
+
+        private bool IsAudioChgEna()
+        {
+            bool ret = true;
+            if (m_ControlModel.IsUsingAudioEna)
+            {
+                ret = IsRecording();
+            }
+            else
+            {
+                AudioEnable = "Audio Rec. disable";
+                AudioEnaColor =
+                    new SolidColorBrush(System.Windows.Media.Color.FromRgb(0x5f, 0x5f, 0x5f));
+                ret = false;
+            }
+            return ret;
         }
 
     }

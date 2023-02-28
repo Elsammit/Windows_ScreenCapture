@@ -19,6 +19,14 @@ namespace WinScreenRec.ControlWindow
             thread.Start();
         }
 
+        public bool IsUsingAudioEna
+        {
+            get
+            {
+                return CapAreaViewModel.m_CapAreaModel.IsUsingAudioEna;
+            }
+        }
+
         public void SetIsAudioON(bool buf)
         {
             CapAreaViewModel.m_CapAreaModel.IsAudioON = buf;

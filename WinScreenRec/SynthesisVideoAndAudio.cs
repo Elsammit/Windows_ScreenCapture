@@ -10,6 +10,35 @@ namespace WinScreenRec
         private string InputVideoPath = "";
         private string AudioPath = "";
 
+        public bool UsingAudioEna { get; set; } = true; 
+
+        public SynthesisVideoAndAudio()
+        {
+            using (var process = new Process())
+            {
+                process.StartInfo.FileName = "ffmpeg";
+                process.StartInfo.Arguments = "-version";
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.UseShellExecute = false;
+
+                bool ret = true;
+
+                try
+                {
+                    ret = process.Start();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ffmpeg check Exeption:{0}",e);
+                    UsingAudioEna = false;
+                    return;
+                }
+
+                Console.WriteLine("process ret:{0}", ret);
+                
+                UsingAudioEna = ret;
+            }
+        }
 
         public void SetOutputVideoPath(string path)
         {
