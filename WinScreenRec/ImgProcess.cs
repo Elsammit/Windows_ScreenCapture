@@ -5,6 +5,7 @@ using OpenCvSharp.Extensions;
 using System.Runtime.InteropServices;
 using WinScreenRec.Reference;
 using System.IO;
+using System.Windows;
 
 namespace WinScreenRec
 {
@@ -218,8 +219,9 @@ namespace WinScreenRec
                         InitVideoWriter();
                     }
                 }
-                // Cv2.ImShow("test", mat);
-                Cv2.WaitKey(48);
+                double rate = 50 - ((capWidth / SystemParameters.PrimaryScreenWidth) *
+                       (capHeight / SystemParameters.PrimaryScreenHeight) * 10);
+                Cv2.WaitKey((int)rate);
             }
             bmp.Dispose();
 

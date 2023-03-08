@@ -1,6 +1,8 @@
 ﻿using NAudio.Wave;
 using System;
 using WinScreenRec.Reference;
+using System.Media;
+using System.Diagnostics;
 
 namespace WinScreenRec
 {
@@ -8,6 +10,8 @@ namespace WinScreenRec
     {
         private IWaveIn WaveIn;
         private WaveFileWriter Writer;
+
+        Stopwatch stopwatch = new Stopwatch();
 
         public AudioProcess()
         {
@@ -27,8 +31,9 @@ namespace WinScreenRec
             //{
             //    buffer[i] = 0; // 無音データの値を0に設定する
             //}
-
+            //SoundPlayer player = new SoundPlayer(@"C:\Windows\Media\dm\Windows Notify System Generic.wav");
             WaveIn.StartRecording();
+            //player.Play();
 
             //Writer.Write(buffer, 0, buffer.Length);
         }
@@ -67,28 +72,30 @@ namespace WinScreenRec
 
         private void OnDataAvailable(object sender, WaveInEventArgs e)
         {
-            int silenceDurationInSeconds = 0; // 無音の長さを10秒に設定する例
             int bytesPerSample = WaveIn.WaveFormat.BitsPerSample / 8;
             int sampleRate = WaveIn.WaveFormat.SampleRate;
             int channels = WaveIn.WaveFormat.Channels;
-            int silenceDuration = (sampleRate * channels * bytesPerSample) / 10;
+            int silenceDuration = (sampleRate * channels * bytesPerSample) * 60 / 1000;
 
             Console.WriteLine("Buffer:{0}, BytesRecorded:{1}", e.Buffer, e.BytesRecorded);
-            if(e.BytesRecorded <= 0)
+            stopwatch.Stop();
+            Console.WriteLine("time is:{0}", stopwatch.Elapsed);
+            if (e.BytesRecorded <= 0)
             {
                 var buffer = new byte[silenceDuration];
                 for (int i = 0; i < buffer.Length; i++)
                 {
                     buffer[i] = 0; // 無音データの値を0に設定する
                 }
-                Writer.Write(buffer, 0, 10000);
+                Writer.Write(buffer, 0, buffer.Length);
             }
             else
             {
 
                 Writer.Write(e.Buffer, 0, e.BytesRecorded);
             }
-
+            stopwatch.Reset();
+            stopwatch.Start();
 
         }
 
