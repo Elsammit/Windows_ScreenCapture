@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using System;
 using WinScreenRec.Reference;
+using System.Media;
 
 namespace WinScreenRec
 {
@@ -27,8 +28,9 @@ namespace WinScreenRec
             //{
             //    buffer[i] = 0; // 無音データの値を0に設定する
             //}
-
+            //SoundPlayer player = new SoundPlayer(@"C:\Windows\Media\dm\Windows Notify System Generic.wav");
             WaveIn.StartRecording();
+            //player.Play();
 
             //Writer.Write(buffer, 0, buffer.Length);
         }
@@ -81,7 +83,7 @@ namespace WinScreenRec
                 {
                     buffer[i] = 0; // 無音データの値を0に設定する
                 }
-                Writer.Write(buffer, 0, 10000);
+                Writer.Write(buffer, 0, 21168);
             }
             else
             {
