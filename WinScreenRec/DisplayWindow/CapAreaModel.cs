@@ -38,6 +38,10 @@ namespace WinScreenRec
         public int RecordCounter { set; get; } = 0;     // Recording Counter (for Recording stop). 
 
 
+        /// <summary>
+        /// Audio enable / disable.
+        /// We need ffmpeg. If ffmpeg is not installed, audio is disable.
+        /// </summary>
         public bool IsUsingAudioEna
         {
             get
@@ -46,6 +50,10 @@ namespace WinScreenRec
             }
         }
 
+        /// <summary>
+        /// Audio ON / OFF.
+        /// Audio settings can be toggled manually.
+        /// </summary>
         public bool IsAudioON {
             get
             {
@@ -62,7 +70,10 @@ namespace WinScreenRec
         {
         }
 
-        // Position get function.
+        /// <summary>
+        /// Position get function.
+        /// </summary>
+        /// <returns></returns>
         public Position Getposition()
         {
             return position;
@@ -85,8 +96,8 @@ namespace WinScreenRec
         /// <param name="setRectInformation">cutting area</param>
         public void MakePosition(System.Windows.Point pos, SetRectInformation setRectInformation)
         {
-            double Xpos = RectLeft;
-            double Ypos = RectTop;
+            double Xpos = RectLeft; // Horizontal axis of recording area.
+            double Ypos = RectTop;  // Vertical axis of recording area.
 
             // If the mouse is being held down, change the area.
             if (IsMouseDown)
@@ -115,7 +126,6 @@ namespace WinScreenRec
 
                 var window = System.Windows.Application.Current.Windows.OfType<System.Windows.Window>().FirstOrDefault(w => w is CaptureAreaWindow);
                 var rectCanvas = (Canvas)window.FindName("RectArea");
-
 
                 position.width = (int)(RectWidth * (SystemParameters.PrimaryScreenWidth / rectCanvas.ActualWidth));
                 position.height = (int)(RectHeight * (SystemParameters.PrimaryScreenHeight / rectCanvas.ActualHeight));
@@ -176,10 +186,9 @@ namespace WinScreenRec
                 m_RECT.left = position.left;
                 m_RECT.top = position.top;
             }
-            System.Windows.Forms.Cursor Cursor =
-                new System.Windows.Forms.Cursor(System.Windows.Forms.Cursor.Current.Handle);
             System.Drawing.Point cPoint = System.Windows.Forms.Cursor.Position;
 
+            // Mouse cursor position superimposed on image.
             m_ImgProcess.SetMouseCursorColor(
                 System.Windows.Forms.Control.MouseButtons.HasFlag(MouseButtons.Left),
                 System.Windows.Forms.Control.MouseButtons.HasFlag(MouseButtons.Right)

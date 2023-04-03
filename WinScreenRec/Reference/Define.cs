@@ -17,5 +17,14 @@ namespace WinScreenRec.Reference
 
         public const string ISRECORDINGCONTENT = "Stop";
         public const string ISRECSTANDBYCONTENT = "Record";
+
+        public const string ISAUDIOONMESSAGE = "Audio Rec. ON";
+        public const string ISAUDIOOFFMESSAGE = "Audio Rec. OFF";
+        public const string ISAUDIODISABLEMESSAGE = "Audio Rec. disable";
+
+        public const int MOUSEPOINTRADIUS = 3;
+        public const int MOUSEPOINTTHICKNESS = 3;
+
+        public const int VIDEOFRAMERATE = 10;
     }
 }

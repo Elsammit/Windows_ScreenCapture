@@ -41,7 +41,6 @@ namespace WinScreenRec
 
         int RecordCnt = 0;  // Recoring counter.
 
-
         public bool IsUsingAudioEna
         {
             get
@@ -58,8 +57,8 @@ namespace WinScreenRec
         {
             int width = m_recordData.right - m_recordData.left;
             int height = m_recordData.bottom - m_recordData.top;
-            writer = new VideoWriter(Define.TEMPVIDEOPATH, FourCC.MP4V, 10,
-                    new OpenCvSharp.Size(width, height));
+            writer = new VideoWriter(Define.TEMPVIDEOPATH, FourCC.MP4V, 
+                    Define.VIDEOFRAMERATE, new OpenCvSharp.Size(width, height));
         }
 
         /// <summary>
@@ -174,9 +173,10 @@ namespace WinScreenRec
                 Cv2.Resize(mat, mat, new OpenCvSharp.Size(capWidth, capHeight));
                 
                 // Add mouse position.
-                Cv2.Circle(mat, m_mousePos.X, m_mousePos.Y, 3, CursorColor, 3, LineTypes.AntiAlias);
+                Cv2.Circle(mat, m_mousePos.X, m_mousePos.Y, 
+                    Define.MOUSEPOINTRADIUS, CursorColor, 
+                    Define.MOUSEPOINTTHICKNESS, LineTypes.AntiAlias);
 
-                
                 if (isStartRec == Define.ISRECSTART && writer != null && writer.IsOpened())
                 {   // Writes to video file when in video recording state.
 
