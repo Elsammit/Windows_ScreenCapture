@@ -162,7 +162,7 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
-        private string _AudioEnable = "Audio ON";
+        private string _AudioEnable = Define.ISAUDIOONMESSAGE;
         public string AudioEnable 
         {
             get
@@ -183,13 +183,13 @@ namespace WinScreenRec.ControlWindow
             m_ControlModel.SetIsAudioON(ChangeColor);
             if (ChangeColor)
             {
-                AudioEnable = "Audio Rec. ON";
+                AudioEnable = Define.ISAUDIOONMESSAGE;
                 AudioEnaColor = 
                     new SolidColorBrush(System.Windows.Media.Color.FromRgb(0xff, 0, 0));
             }
             else
             {
-                AudioEnable = "Audio Rec. OFF";
+                AudioEnable = Define.ISAUDIOOFFMESSAGE;
                 AudioEnaColor = 
                     new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
             }
@@ -292,7 +292,7 @@ namespace WinScreenRec.ControlWindow
             }
             else
             {
-                AudioEnable = "Audio Rec. disable";
+                AudioEnable = Define.ISAUDIODISABLEMESSAGE;
                 AudioEnaColor =
                     new SolidColorBrush(System.Windows.Media.Color.FromRgb(0x5f, 0x5f, 0x5f));
                 ret = false;

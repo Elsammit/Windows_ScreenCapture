@@ -6,14 +6,16 @@ namespace WinScreenRec
 {
     class SynthesisVideoAndAudio
     {
-        private string OutputVideoPath = "";
-        private string InputVideoPath = "";
-        private string AudioPath = "";
+        private string OutputVideoPath = "";    // Output video path.
+        private string InputVideoPath = "";     // Input video path.
+        private string AudioPath = "";          // Input audio path.
 
+        // Audio enable flag.
         public bool UsingAudioEna { get; set; } = true; 
 
         public SynthesisVideoAndAudio()
         {
+            // Check audio synthesis enable /disable.
             using (var process = new Process())
             {
                 process.StartInfo.FileName = "ffmpeg";
@@ -23,6 +25,7 @@ namespace WinScreenRec
 
                 bool ret = true;
 
+                // Execute command.
                 try
                 {
                     ret = process.Start();
@@ -40,16 +43,28 @@ namespace WinScreenRec
             }
         }
 
+        /// <summary>
+        /// Setting output video path.
+        /// </summary>
+        /// <param name="path">setted video path.</param>
         public void SetOutputVideoPath(string path)
         {
             OutputVideoPath = path;
         } 
 
+        /// <summary>
+        /// Get output video path.
+        /// </summary>
+        /// <returns></returns>
         public string GetOutputVideoPath()
         {
             return OutputVideoPath;
         }
 
+        /// <summary>
+        /// Execute synthesis the audio.
+        /// </summary>
+        /// <returns></returns>
         public bool ExecSynthesis()
         {
             bool ret = true;
@@ -70,7 +85,6 @@ namespace WinScreenRec
 
                 Console.WriteLine("Command finish!!");
             }
-
 
             return ret;
         }

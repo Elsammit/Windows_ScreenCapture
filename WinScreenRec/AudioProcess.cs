@@ -20,22 +20,7 @@ namespace WinScreenRec
         public void AudioRecProcessStart() 
         {
             InitializeAudioRecParam();
-
-            //int silenceDurationInSeconds = 10; // 無音の長さを10秒に設定する例
-            //int bytesPerSample = WaveIn.WaveFormat.BitsPerSample / 8;
-            //int sampleRate = WaveIn.WaveFormat.SampleRate;
-            //int channels = WaveIn.WaveFormat.Channels;
-
-            //var buffer = new byte[sampleRate * channels * bytesPerSample * silenceDurationInSeconds];
-            //for (int i = 0; i < buffer.Length; i++)
-            //{
-            //    buffer[i] = 0; // 無音データの値を0に設定する
-            //}
-            //SoundPlayer player = new SoundPlayer(@"C:\Windows\Media\dm\Windows Notify System Generic.wav");
             WaveIn.StartRecording();
-            //player.Play();
-
-            //Writer.Write(buffer, 0, buffer.Length);
         }
 
         public void AudioRecProcessStop() { WaveIn.StopRecording(); }

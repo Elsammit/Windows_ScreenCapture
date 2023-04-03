@@ -57,8 +57,7 @@ namespace WinScreenRec.ControlWindow
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = Define.ISRECSTART;
 
-            Console.WriteLine("IsAudioON:{0}", 
-                CapAreaViewModel.m_CapAreaModel.IsAudioON);
+            Console.WriteLine("IsAudioON:{0}", CapAreaViewModel.m_CapAreaModel.IsAudioON);
 
             if (CapAreaViewModel.m_CapAreaModel.IsAudioON)
             {
@@ -73,8 +72,7 @@ namespace WinScreenRec.ControlWindow
         {
             CapAreaViewModel.m_CapAreaModel.isStartRec = Define.ISRECSTOP;
 
-            Console.WriteLine("IsAudioON:{0}",
-                CapAreaViewModel.m_CapAreaModel.IsAudioON);
+            Console.WriteLine("IsAudioON:{0}", CapAreaViewModel.m_CapAreaModel.IsAudioON);
 
             if (CapAreaViewModel.m_CapAreaModel.IsAudioON)
             {
