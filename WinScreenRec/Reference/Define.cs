@@ -26,5 +26,6 @@ namespace WinScreenRec.Reference
         public const int MOUSEPOINTTHICKNESS = 3;
 
         public const int VIDEOFRAMERATE = 10;
+        public static System.Diagnostics.Stopwatch CapFrameRate = new System.Diagnostics.Stopwatch();
     }
 }

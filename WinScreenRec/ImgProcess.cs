@@ -88,6 +88,7 @@ namespace WinScreenRec
         {
             bool ret = true;
 
+            // Obtain full screen size.
             var bmpGraphics = Graphics.FromImage(screenBmp);
             bmpGraphics.CopyFromScreen(0, 0, 0, 0, screenBmp.Size);
 
@@ -219,9 +220,15 @@ namespace WinScreenRec
                         InitVideoWriter();
                     }
                 }
-                double rate = 50 - ((capWidth / SystemParameters.PrimaryScreenWidth) *
-                       (capHeight / SystemParameters.PrimaryScreenHeight) * 10);
+
+                // Calculate the frame rates.
+                // The larger the screen size, the slower the processing speed.
+                //double rate = 50 - ((capWidth / SystemParameters.PrimaryScreenWidth) *
+                //       (capHeight / SystemParameters.PrimaryScreenHeight) * 10);
+                double rate = 90 - Define.CapFrameRate.ElapsedMilliseconds;
+                Console.WriteLine($"A:{Define.CapFrameRate.ElapsedMilliseconds}ミリ秒");
                 Cv2.WaitKey((int)rate);
+                Console.WriteLine($"B:{Define.CapFrameRate.ElapsedMilliseconds}ミリ秒");
             }
             bmp.Dispose();
 

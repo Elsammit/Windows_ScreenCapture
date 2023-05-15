@@ -37,7 +37,6 @@ namespace WinScreenRec
         public string RecordTimer { set; get; } = "";   // Recording Time.
         public int RecordCounter { set; get; } = 0;     // Recording Counter (for Recording stop). 
 
-
         /// <summary>
         /// Audio enable / disable.
         /// We need ffmpeg. If ffmpeg is not installed, audio is disable.
@@ -148,9 +147,10 @@ namespace WinScreenRec
             var bitmap = new System.Drawing.Bitmap(
                 (int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight,
                 System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            
+
             while (isStartPrev)
             {
+                Define.CapFrameRate.Restart();
                 ChangeCntToTimer(m_ImgProcess.GetRecordCount());    // Timer count is up.
                 ret = CaputureScreen(ref bitmap);                   
                 if (!ret) { isStartPrev = ret; }
@@ -195,6 +195,7 @@ namespace WinScreenRec
             );
             m_ImgProcess.CalcMousePositionFromRect(m_RECT, cPoint);
             m_ImgProcess.GetCaptureImage(isStartRec, m_RECT, ref bitmap);
+
 
             return ret;
         }
