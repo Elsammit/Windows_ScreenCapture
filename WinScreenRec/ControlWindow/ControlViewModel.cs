@@ -28,6 +28,9 @@ namespace WinScreenRec.ControlWindow
             ChangeAudioStatus();
         }
 
+        /// <summary>
+        /// /Record timer context.
+        /// </summary>
         private String _RecordContent;
         public String RecordContent {
             get { return _RecordContent; }
@@ -38,7 +41,9 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
-
+        /// <summary>
+        /// Recording creation area display switching process.
+        /// </summary>
         private DelegateCommand _SelectPreviewArea = null;
         public DelegateCommand SelectPreviewArea
         {
@@ -52,6 +57,9 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
+        /// <summary>
+        /// Execute capture the area.
+        /// </summary>
         private DelegateCommand _RecordCapture = null;
         public DelegateCommand RecordCapture
         {
@@ -65,6 +73,9 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
+        /// <summary>
+        /// Change record available or not.
+        /// </summary>
         private DelegateCommand _OnAudioAvailable = null;
         public DelegateCommand OnAudioAvailable
         {
