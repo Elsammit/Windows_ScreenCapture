@@ -25,7 +25,8 @@
             Width="118" 
             Command="{Binding SelectPreviewArea}" 
             IsEnabled="{Binding PrevieAreaEnable}" 
-            Height="89"
+            Height="89" 
+            Cursor="Hand"
         />
         <Button 
             Content="{Binding RecordContent}" 
@@ -33,6 +34,7 @@
             VerticalAlignment="Top" 
             Command="{Binding RecordCapture}" 
             Height="89"
+            Cursor="Hand"
         />
         <Ellipse 
             Fill="#FF0000" 
@@ -43,6 +45,7 @@
             VerticalAlignment="Top" 
             Width="26" 
             Visibility="{Binding EnableRecordMark}" 
+            Cursor="Hand"
         />
         <Label 
             Content="{Binding TimerValue}" 
@@ -51,17 +54,20 @@
             VerticalAlignment="Top" 
             Visibility="{Binding EnableRecordTime}" 
             FontSize="18" 
+            Cursor="Hand"
         />
         <Button 
             Content="{Binding AudioEnable}" 
             HorizontalAlignment="Left" 
             Height="31" 
-            Margin="104,54,0,0" 
+            Margin="26,54,0,0" 
             VerticalAlignment="Top" 
             Width="115" 
             Command="{Binding OnAudioAvailable}" 
             Foreground="{Binding AudioEnaColor}"
             FontWeight="Bold"
+            Cursor="Hand"
         />
+        <ComboBox HorizontalAlignment="Left" Margin="182,56,0,0" VerticalAlignment="Top" Width="115" Height="26"/>
     </Grid>
 </Window>

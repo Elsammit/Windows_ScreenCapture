@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows;
@@ -8,6 +9,12 @@ using WinScreenRec.Reference;
 
 namespace WinScreenRec.ControlWindow
 {
+    class MovieExtensions 
+    {
+        public string MovieExtension { get; set; }
+    }
+
+
     class ControlViewModel : BindingBase
     {
         CaptureAreaWindow m_CaptureAreaWindow = new CaptureAreaWindow();
@@ -26,6 +33,12 @@ namespace WinScreenRec.ControlWindow
             RecordContent = "Record";
 
             ChangeAudioStatus();
+
+            //MovieExtensions = new ObservableCollection<MovieExtensions>
+            //{
+            //    new MovieExtensions { MovieExtension = "AAA" }
+            //}
+
         }
 
         /// <summary>
@@ -88,7 +101,6 @@ namespace WinScreenRec.ControlWindow
                 return _OnAudioAvailable;
             }
         }
-
 
         private DelegateCommand _ClickCloseWindow = null;
 
@@ -187,6 +199,18 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
+        private ObservableCollection<MovieExtensions> _movieExtLists;
+        public ObservableCollection<MovieExtensions> movieExtLists
+        {
+            get { return _movieExtLists; }
+            set
+            {
+                _movieExtLists = value;
+                OnPropertyChanged(nameof(movieExtLists));
+            }
+        }
+
+
 
         private void ChangeAudioStatus()
         {
@@ -256,13 +280,21 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
+        /// <summary>
+        /// Recording time acquisition (asynchronous).
+        /// </summary>
         public void GetRecordTimerAsync()
         {
             while (IsWindowClose)
             {
+                // Get record time.
                 TimerValue = m_ControlModel.GetTimer();
-                Thread.Sleep(500);
 
+                // The recording time is displayed every second, 
+                // so there is no need for a quick loop, so "wait" is inserted.
+                Thread.Sleep(250);
+
+                // Stops recording when the maximum recording time has elapsed.
                 if (m_ControlModel.GetTimeCounter() > Define.MAXRECORDTIME * 10)
                 {
                     RecordCaptureFunc();
@@ -270,6 +302,9 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
+        /// <summary>
+        /// Execution when screen is closed
+        /// </summary>
         private void CloseWindowFunc()
         {
             IsWindowClose = false;
@@ -282,6 +317,10 @@ namespace WinScreenRec.ControlWindow
             return true;
         }
 
+        /// <summary>
+        /// Record Flag.
+        /// </summary>
+        /// <returns></returns>
         private bool IsRecording()
         {
             if(m_ControlModel.CheckIsRecord() != Define.ISRECSTART)

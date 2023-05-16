@@ -223,12 +223,10 @@ namespace WinScreenRec
 
                 // Calculate the frame rates.
                 // The larger the screen size, the slower the processing speed.
-                //double rate = 50 - ((capWidth / SystemParameters.PrimaryScreenWidth) *
-                //       (capHeight / SystemParameters.PrimaryScreenHeight) * 10);
-                double rate = 90 - Define.CapFrameRate.ElapsedMilliseconds;
-                Console.WriteLine($"A:{Define.CapFrameRate.ElapsedMilliseconds}ミリ秒");
-                Cv2.WaitKey((int)rate);
-                Console.WriteLine($"B:{Define.CapFrameRate.ElapsedMilliseconds}ミリ秒");
+                while(Define.CapFrameRate.ElapsedMilliseconds < 100)
+                {
+                    Cv2.WaitKey(1);
+                }
             }
             bmp.Dispose();
 
