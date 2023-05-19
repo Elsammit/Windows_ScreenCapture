@@ -68,6 +68,15 @@
             FontWeight="Bold"
             Cursor="Hand"
         />
-        <ComboBox HorizontalAlignment="Left" Margin="182,56,0,0" VerticalAlignment="Top" Width="115" Height="26"/>
+        <ComboBox 
+            ItemsSource="{Binding movieExtLists}"
+            DisplayMemberPath="MovieExtension"
+            SelectedItem="{Binding SelectedItem}"
+            HorizontalAlignment="Left" 
+            Margin="182,56,0,0" 
+            VerticalAlignment="Top" 
+            Width="115" 
+            Height="26"
+        />
     </Grid>
 </Window>

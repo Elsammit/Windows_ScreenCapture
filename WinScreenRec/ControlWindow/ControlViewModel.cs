@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using WinScreenRec.Reference;
 
@@ -34,11 +35,14 @@ namespace WinScreenRec.ControlWindow
 
             ChangeAudioStatus();
 
-            //MovieExtensions = new ObservableCollection<MovieExtensions>
-            //{
-            //    new MovieExtensions { MovieExtension = "AAA" }
-            //}
+            movieExtLists = new ObservableCollection<MovieExtensions>
+            {
+                new MovieExtensions { MovieExtension = "AAA" },
+                new MovieExtensions { MovieExtension = "BBB" },
+                new MovieExtensions { MovieExtension = "CCC" },
+            };
 
+            SelectedItem = movieExtLists[0];
         }
 
         /// <summary>
@@ -210,7 +214,29 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
+        private MovieExtensions _SelectedItem = new MovieExtensions { MovieExtension = "AAA" };
+        public MovieExtensions SelectedItem 
+        {
+            get { return _SelectedItem; }
+            set
+            {
+                _SelectedItem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
 
+        private DelegateCommand _SelectedMovieExtension = null;
+        public DelegateCommand SelectedMovieExtension
+        {
+            get
+            {
+                if (_SelectedMovieExtension == null)
+                {
+                    _SelectedMovieExtension = new DelegateCommand(ExecSelectedMovieExtension, IsCmdTrue);
+                }
+                return _SelectedMovieExtension;
+            }
+        }
 
         private void ChangeAudioStatus()
         {
@@ -348,6 +374,11 @@ namespace WinScreenRec.ControlWindow
                 ret = false;
             }
             return ret;
+        }
+
+        private void ExecSelectedMovieExtension()
+        {
+            Console.WriteLine(SelectedItem);
         }
 
     }
