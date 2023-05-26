@@ -37,9 +37,9 @@ namespace WinScreenRec.ControlWindow
 
             movieExtLists = new ObservableCollection<MovieExtensions>
             {
-                new MovieExtensions { MovieExtension = "AAA" },
-                new MovieExtensions { MovieExtension = "BBB" },
-                new MovieExtensions { MovieExtension = "CCC" },
+                new MovieExtensions { MovieExtension = Define.EXTENSIONLIST[0] },
+                new MovieExtensions { MovieExtension = Define.EXTENSIONLIST[1] },
+                new MovieExtensions { MovieExtension = Define.EXTENSIONLIST[2] },
             };
 
             SelectedItem = movieExtLists[0];
@@ -214,7 +214,7 @@ namespace WinScreenRec.ControlWindow
             }
         }
 
-        private MovieExtensions _SelectedItem = new MovieExtensions { MovieExtension = "AAA" };
+        private MovieExtensions _SelectedItem = new MovieExtensions { MovieExtension = "動画種類" };
         public MovieExtensions SelectedItem 
         {
             get { return _SelectedItem; }
@@ -275,9 +275,17 @@ namespace WinScreenRec.ControlWindow
         {
             if (m_ControlModel.CheckIsRecord() != Define.ISRECSTART)
             {
+                Console.WriteLine(SelectedItem.MovieExtension);
                 var dialog = new SaveFileDialog();
                 dialog.Title = "Save File";
-                dialog.Filter = "video file|*.mp4";
+
+                if (SelectedItem.MovieExtension == Define.EXTENSIONLIST[1])
+                {
+                    dialog.Filter = "video file|*.mp4";
+                }else if (SelectedItem.MovieExtension == Define.EXTENSIONLIST[2])
+                {
+                    dialog.Filter = "video file|*.wmv";
+                }
                 if (dialog.ShowDialog() == true)
                 {
                     PrevieAreaEnable = false;
@@ -378,7 +386,8 @@ namespace WinScreenRec.ControlWindow
 
         private void ExecSelectedMovieExtension()
         {
-            Console.WriteLine(SelectedItem);
+            Console.WriteLine(SelectedItem.MovieExtension);
+            m_ControlModel.SelectedExtension(SelectedItem.MovieExtension);
         }
 
     }

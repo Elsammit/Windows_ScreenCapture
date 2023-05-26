@@ -98,6 +98,11 @@ namespace WinScreenRec.ControlWindow
             return CapAreaViewModel.m_CapAreaModel.RecordCounter;
         }
 
+        public void SelectedExtension(string selectedExtension)
+        {
+            CapAreaViewModel.m_CapAreaModel.SelectedExtension(selectedExtension);
+        }
+
         /// <summary>
         /// Control window is close.
         /// </summary>
