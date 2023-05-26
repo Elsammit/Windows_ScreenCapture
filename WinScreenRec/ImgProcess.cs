@@ -35,6 +35,7 @@ namespace WinScreenRec
         Bitmap bmp = null;
 
         public bool IsAudioOn { set; get; } = false;                    // Audio Enable/Disable flag.
+        public int MovieFourcc { set; get; } = -1;
 
         // Object generation for combining video and audio.
         SynthesisVideoAndAudio m_SynthesisVideoAndAudio = new SynthesisVideoAndAudio();

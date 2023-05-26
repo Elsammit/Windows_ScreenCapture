@@ -1,4 +1,6 @@
 ﻿
+using OpenCvSharp;
+
 namespace WinScreenRec.Reference
 {
     static class Define
@@ -27,5 +29,8 @@ namespace WinScreenRec.Reference
 
         public const int VIDEOFRAMERATE = 10;
         public static System.Diagnostics.Stopwatch CapFrameRate = new System.Diagnostics.Stopwatch();
+
+        public static string[] EXTENSIONLIST = new string[3]{ "動画種類", "MP4", "WMV" };
+        public static int[] EXTENSIONFOURCC = new int[2] { FourCC.MP4V, FourCC.WMV3 }; 
     }
 }

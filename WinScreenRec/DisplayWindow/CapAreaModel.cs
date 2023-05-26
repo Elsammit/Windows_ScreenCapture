@@ -212,5 +212,15 @@ namespace WinScreenRec
             RecordTimer = minutes.ToString("00") + ":" + seconds.ToString("00");
             RecordCounter = timerCnt;
         }
+
+        public void SelectedExtension(string selectedExtension)
+        {
+            int index = Array.IndexOf(Define.EXTENSIONLIST, selectedExtension);
+            if(index > 0)
+            {
+                //Console.WriteLine(Define.EXTENSIONFOURCC[index-1]);
+                Console.WriteLine(index-1);
+            }
+        }
     }
 }

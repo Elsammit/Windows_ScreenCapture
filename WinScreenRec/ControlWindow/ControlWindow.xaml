@@ -77,6 +77,12 @@
             VerticalAlignment="Top" 
             Width="115" 
             Height="26"
-        />
+        >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectedMovieExtension}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
     </Grid>
 </Window>
