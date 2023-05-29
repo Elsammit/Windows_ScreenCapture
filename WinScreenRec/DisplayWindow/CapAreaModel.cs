@@ -220,6 +220,7 @@ namespace WinScreenRec
             {
                 //Console.WriteLine(Define.EXTENSIONFOURCC[index-1]);
                 Console.WriteLine(index-1);
+                m_ImgProcess.MovieFourcc = index - 1;
             }
         }
     }

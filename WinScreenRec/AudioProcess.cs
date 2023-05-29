@@ -62,9 +62,7 @@ namespace WinScreenRec
             int channels = WaveIn.WaveFormat.Channels;
             int silenceDuration = (sampleRate * channels * bytesPerSample) * 60 / 1000;
 
-            Console.WriteLine("Buffer:{0}, BytesRecorded:{1}", e.Buffer, e.BytesRecorded);
             stopwatch.Stop();
-            Console.WriteLine("time is:{0}", stopwatch.Elapsed);
             if (e.BytesRecorded <= 0)
             {
                 var buffer = new byte[silenceDuration];

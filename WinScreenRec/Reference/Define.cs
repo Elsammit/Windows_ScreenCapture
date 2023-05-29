@@ -15,6 +15,7 @@ namespace WinScreenRec.Reference
         public const int MAXRECORDTIME = 30 * 60;
 
         public const string TEMPVIDEOPATH = @"E:\tempMovies.mp4";
+        public const string TEMPWMVPATH = @"E:\tempMovies.wmv";
         public const string TEMPAUDIOPATH = @"E:\tempAudio.wav";
 
         public const string ISRECORDINGCONTENT = "Stop";
@@ -31,6 +32,6 @@ namespace WinScreenRec.Reference
         public static System.Diagnostics.Stopwatch CapFrameRate = new System.Diagnostics.Stopwatch();
 
         public static string[] EXTENSIONLIST = new string[3]{ "動画種類", "MP4", "WMV" };
-        public static int[] EXTENSIONFOURCC = new int[2] { FourCC.MP4V, FourCC.WMV3 }; 
+        public static int[] EXTENSIONFOURCC = new int[2] { FourCC.MP4V, FourCC.WMV1 }; 
     }
 }

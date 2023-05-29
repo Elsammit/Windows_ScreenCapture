@@ -56,9 +56,14 @@ namespace WinScreenRec
         /// <param name="rect">Cutting rectangle</param>
         public void InitVideoWriter()
         {
+            Console.WriteLine("Call init writer");
             int width = m_recordData.right - m_recordData.left;
             int height = m_recordData.bottom - m_recordData.top;
-            writer = new VideoWriter(Define.TEMPVIDEOPATH, FourCC.MP4V, 
+            string path = Define.TEMPWMVPATH;
+            if(MovieFourcc == 0) { path = Define.TEMPVIDEOPATH; }
+            //writer = new VideoWriter(Define.TEMPVIDEOPATH, FourCC.MP4V, 
+            //        Define.VIDEOFRAMERATE, new OpenCvSharp.Size(width, height));
+            writer = new VideoWriter(path, Define.EXTENSIONFOURCC[MovieFourcc],
                     Define.VIDEOFRAMERATE, new OpenCvSharp.Size(width, height));
         }
 
