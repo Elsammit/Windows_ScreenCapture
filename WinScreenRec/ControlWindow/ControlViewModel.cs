@@ -242,16 +242,33 @@ namespace WinScreenRec.ControlWindow
         {
             ChangeColor = !ChangeColor;
             m_ControlModel.SetIsAudioON(ChangeColor);
+            ChangingColor();
+            //if (ChangeColor)
+            //{
+            //    AudioEnable = Define.ISAUDIOONMESSAGE;
+            //    AudioEnaColor = 
+            //        new SolidColorBrush(System.Windows.Media.Color.FromRgb(0xff, 0, 0));
+            //}
+            //else
+            //{
+            //    AudioEnable = Define.ISAUDIOOFFMESSAGE;
+            //    AudioEnaColor = 
+            //        new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
+            //}
+        }
+        
+        private void ChangingColor()
+        {
             if (ChangeColor)
             {
                 AudioEnable = Define.ISAUDIOONMESSAGE;
-                AudioEnaColor = 
+                AudioEnaColor =
                     new SolidColorBrush(System.Windows.Media.Color.FromRgb(0xff, 0, 0));
             }
             else
             {
                 AudioEnable = Define.ISAUDIOOFFMESSAGE;
-                AudioEnaColor = 
+                AudioEnaColor =
                     new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
             }
         }
@@ -370,8 +387,10 @@ namespace WinScreenRec.ControlWindow
         private bool IsAudioChgEna()
         {
             bool ret = true;
-            if (m_ControlModel.IsUsingAudioEna)
+            if (m_ControlModel.IsUsingAudioEna && 
+                (SelectedItem.MovieExtension == Define.EXTENSIONLIST[1]))
             {
+                ChangingColor();
                 ret = IsRecording();
             }
             else
